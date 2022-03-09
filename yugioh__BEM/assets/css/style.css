@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Common */
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Main */
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 8px solid #333;
+    width: 450px;
+    background: linear-gradient(0deg, rgb(246, 173, 2), rgb(236, 136, 5));
+}
+
+.card--kagari,
+.card--shizuku {
+    background: linear-gradient(180deg, rgb(20, 120, 235), rgb(14, 184, 214));
+}
+
+.card__name {
+    margin: 12px 8px 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 40px;
+    box-shadow: 2px 2px 4px 0px rgb(0 0 0 / 80%);
+}
+
+.card__attribute {
+    float: right;
+    margin: 4px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(0deg, red, #000, purple);
+    line-height: 30px;
+    font-size: 8px;
+    color: #fff;
+}
+
+.card--kagari .card__attribute {
+    background: linear-gradient(180deg, #000, red, orange);
+}
+
+.card--shizuku .card__attribute {
+    background: linear-gradient(90deg, #000, aqua);
+}
+
+.card__levels {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 16px;
+}
+
+.card--kagari .card__levels,
+.card--shizuku .card__levels {
+    display: none;
+}
+
+.card__level {
+    border-radius: 50%;
+    background-color: rgb(246, 137, 11);
+}
+
+.card__level i {
+    color: yellow;
+}
+
+.card__artwork {
+    position: relative;
+    margin: 4px 18px 16px;
+    border: 4px outset #888;
+    height: 352px;
+    min-width: 352px;
+    --px: 16px;
+    --half: 50%;
+}
+
+.card--kagari .card__artwork,
+.card--shizuku .card__artwork {
+    margin-top: 22px;
+}
+
+.card__img {
+    width: 100%;
+    height: 100%;
+}
+
+.card__arrow {
+    position: absolute;
+    font-size: 60px;
+    color: #444;
+}
+
+.card__arrow:nth-of-type(-n + 3) {
+    top: -32px;
+}
+
+.card__arrow:nth-of-type(n + 4) {
+    bottom: -32px;
+}
+
+.card__arrow:nth-of-type(1) {
+    left: -16px;
+    transform: rotate(-45deg);
+}
+
+.card__arrow:nth-of-type(2) {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.card__arrow:nth-of-type(3) {
+    right: -16px;
+    transform: rotate(45deg);
+}
+
+.card__arrow:nth-of-type(4) {
+    left: -16px;
+    transform: rotate(-135deg);
+}
+
+.card__arrow:nth-of-type(5) {
+    right: 50%;
+    transform: translateX(50%) rotate(-180deg);
+}
+
+.card__arrow:nth-of-type(6) {
+    right: -16px;
+    transform: rotate(135deg);
+}
+
+.card--kagari .card__arrow:nth-of-type(3),
+.card--shizuku .card__arrow:nth-of-type(1) {
+    color: red;
+}
+
+.card--kagari .card__arrow:nth-of-type(3) > i,
+.card--shizuku .card__arrow:nth-of-type(1) > i {
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    font-size: 30px;
+    transform: rotateY(0deg) rotate(0deg);
+    color: #fff;
+}
+
+.card__description {
+    margin: 0px 8px 16px;
+    border: 4px solid rgba(248, 184, 9, 0.7);
+    border-radius: 4px;
+    padding: 0px 12px;
+    text-align: justify;
+}
+
+.card__type {
+    font-weight: bold;
+}
+
+.card__effects {
+    margin: 4px 0px;
+    min-height: 120px;
+    font-size: 12px;
+}
+
+.card__stats {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card__def,
+.card__atk {
+    margin: 0px 4px;
+    font-weight: 400;
+}
+
+.card--kagari .card__def,
+.card--shizuku .card__def {
+    display: none;
+}
+
+.card--kagari .card__atk:after,
+.card--shizuku .card__atk:after {
+    content: "LINK - 1";
+    margin: 0px 4px;
+    font-weight: bold;
+}
+
+hr {
+    border: 0.5px solid #000;
+}

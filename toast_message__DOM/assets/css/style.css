@@ -1,0 +1,182 @@
+/*=============================================
+=            Reset CSS                        =
+=============================================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*=============================================
+=            Common                           =
+=============================================*/
+
+html {
+  line-height: 1.5;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.text-white {
+  color: white;
+}
+
+.opacity-eight {
+  opacity: 0.8;
+}
+
+/*=============================================
+=            Main                             =
+=============================================*/
+
+/*----------  Toast Message  ----------*/
+
+.main {
+  --blue: #007bc3;
+  --yellow: #f0a82f;
+  --green: #21a67a;
+  --red: #e64022;
+}
+
+#toast-container {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  height: 850px;
+}
+
+.toast {
+  margin: 16px;
+  border: 0.5px solid #ddd;
+  border-radius: 16px;
+  min-width: 660px;
+  box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.69);
+  transition: all linear 0.3s;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(calc(100% + 32px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+.toast__margin {
+  margin: 12px 0px 12px 8px;
+  border: 3px solid;
+  border-radius: 4px;
+}
+.btn-info,
+.toast--info .toast__margin {
+  border-color: var(--blue);
+  background-color: var(--blue);
+}
+.btn-warning,
+.toast--warning .toast__margin {
+  border-color: var(--yellow);
+  background-color: var(--yellow);
+}
+.btn-success,
+.toast--success .toast__margin {
+  border-color: var(--green);
+  background-color: var(--green);
+}
+.btn-error,
+.toast--error .toast__margin {
+  border-color: var(--red);
+  background-color: var(--red);
+}
+
+.toast__icon {
+  flex: 1;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  text-align: center;
+}
+
+.fa-solid {
+  font-size: 34px;
+}
+.fa-circle-info {
+  color: var(--blue);
+}
+.fa-circle-exclamation {
+  color: var(--yellow);
+}
+.fa-circle-check {
+  color: var(--green);
+}
+.fa-circle-xmark {
+  color: var(--red);
+}
+
+.toast__description {
+  flex: 10;
+  max-width: 500px;
+}
+
+.toast__heading {
+  margin: 28px 0px 4px;
+}
+
+.toast__message {
+  margin: 0px 0px 28px;
+  opacity: 0.6;
+}
+
+.toast__close {
+  flex: 0.5;
+  margin-left: 12px;
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  background-color: #fff;
+  font-size: 20px;
+  color: #aaa;
+}
+
+.fa-xmark {
+  cursor: pointer;
+}
+
+/*----------  Toggle Buttons  ----------*/
+
+.buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  flex-direction: column;
+  transform: translate(-50%, -50%);
+}
+
+.btn {
+  margin: 8px;
+  padding: 8px 0px;
+  border: 1px solid #aaa;
+  border-radius: 16px;
+  min-width: 300px;
+  font-size: 24px;
+  line-height: 32px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 1;
+}

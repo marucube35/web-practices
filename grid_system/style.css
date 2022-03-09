@@ -1,0 +1,49 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.item {
+  margin-top: 16px;
+  min-height: 380px;
+  line-height: 380px;
+  font-size: 40px;
+  text-align: center;
+  background-color: rgb(13, 240, 236);
+  color: #fff;
+}
+.item2 {
+  background-color: rgb(243, 99, 221);
+}
+.item3 {
+  min-height: 180px;
+  max-height: 180px;
+  line-height: 180px;
+  background-color: rgb(131, 236, 12);
+}
+
+.main {
+  display: flex;
+  margin-top: 24px;
+  padding: 0 32px;
+}
+.sidebar {
+  width: 300px;
+  background-color: aqua;
+  margin-right: 8px;
+}
+.content {
+  flex: 1;
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+@media (max-width: 749px){
+    .hide-on-mobile{
+        display: none;
+    }
+}
