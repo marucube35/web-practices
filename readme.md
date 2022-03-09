@@ -1,4 +1,4 @@
-# ✨ Collection of Web Mini Demo ✨
+# ✨ Collection of Web Dev Practices ✨
 
 Lưu trữ các project nho nhỏ, thực hiện trong quá trình học phát triển web.
 
