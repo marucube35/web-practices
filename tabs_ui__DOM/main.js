@@ -11,22 +11,21 @@ const contents = $$(".content");
 tabs.forEach((currentItem, index) => {
     const content = contents[index];
     currentItem.addEventListener("click", () => {
-
         $(`.${tabTrigger}`).classList.remove(`${tabTrigger}`);
         $(`.${contentTrigger}`).classList.remove(`${contentTrigger}`);
         currentItem.classList.add(`${tabTrigger}`);
         content.classList.add(`${contentTrigger}`);
 
-        moveLine()
-    })
+        moveLine();
+    });
 });
 
 const moveLine = () => {
     const tabActive = $(`.${tabTrigger}`);
     const line = $(".line");
 
-    line.style.left = tabActive.offsetLeft + 'px';
-    line.style.width = tabActive.offsetWidth + 'px';
-}
+    line.style.left = tabActive.offsetLeft + "px";
+    line.style.width = tabActive.offsetWidth + "px";
+};
 
 moveLine();

@@ -1,9 +1,8 @@
 {
-  "pokemons": [
-    {
+  "pokemons": [{
+      "id": 4,
       "name": "Charmander",
-      "type": "fire",
-      "id": 4
+      "type": "fire"
     },
     {
       "id": 26,
@@ -11,9 +10,9 @@
       "type": "dragon_poison"
     },
     {
+      "id": 27,
       "name": "Cosmog",
-      "type": "psychic",
-      "id": 27
+      "type": "psychic"
     }
   ]
 }

@@ -1,6 +1,11 @@
 let toastContainer = document.querySelector("#toast-container");
 
-function toggleMessage({ type, heading, message, duration }) {
+function toggleMessage({
+  type,
+  heading,
+  message,
+  duration
+}) {
   let toast = document.createElement("div");
   let icons = {
     info: `fa-circle-info`,

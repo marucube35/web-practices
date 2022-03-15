@@ -66,6 +66,7 @@ h2 {
     transform: rotate(360deg);
   }
 }
+
 /*----------  Circle Loading  ----------*/
 .loading {
   margin-bottom: 16px;
@@ -106,31 +107,38 @@ h2 {
   0% {
     transform: translateX(0px);
   }
+
   50% {
     transform: translateX(90px);
   }
+
   100% {
     transform: translateX(0px);
   }
 }
+
 @keyframes spin2 {
   0% {
     opacity: 1;
     transform: translateX(0px);
   }
+
   49.99% {
     opacity: 1;
     transform: translateX(90px);
   }
+
   50% {
     opacity: 0;
     transform: translateX(90px);
   }
+
   100% {
     opacity: 0;
     transform: translateX(0px);
   }
 }
+
 /*----------  Dots Loading  ----------*/
 .dot-loading {
   margin-bottom: 16px;
@@ -168,10 +176,13 @@ h2 {
   0% {
     transform: translateY(0px);
   }
-  50%, 100% {
+
+  50%,
+  100% {
     transform: translateY(20px);
   }
 }
+
 /*=============================================
 =               Transitions                   =
 =============================================*/
