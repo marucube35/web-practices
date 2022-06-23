@@ -1,0 +1,44 @@
+body {
+    font-family: Roboto, sans-serif;
+}
+
+h1 {
+    margin: auto;
+}
+
+h2 {
+    margin: auto;
+    font-weight: 100;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    margin: 3px 0;
+    text-align: left;
+    padding: 20px 16px;
+    border-radius: 4px;
+}
+
+.wrapper {
+    width: 50vw;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.year {
+    font-size: 80px;
+}
+
+.date-time {
+    margin: 12px auto;
+    border-radius: 4px;
+    padding: 10px 10px;
+    display: inline-block;
+}
