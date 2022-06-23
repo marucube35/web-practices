@@ -4,16 +4,17 @@ Lưu trữ các project nho nhỏ, thực hiện trong quá trình học phát t
 
 ## Mục lục
 
-| Tên project                                    |                            Kiến thức vận dụng                             | Thời gian thực hiện |
-| :--------------------------------------------- | :-----------------------------------------------------------------------: | ------------------: |
-| [Tribute Page](tribute_page/index.html)        |                             HTML & CSS cơ bản                             |             06/2021 |
-| [Pokewiki](pokewiki__fetchAPI/index.html)      | CRUD với fetchAPI của JS, Mock API với json-server, Object, Destructuring |          30/01/2022 |
-| [Yugioh Cards](yugioh__BEM/index.html)         |                     Flexbox & DOM cơ bản, Transition                      |          16/02/2022 |
-| [Toast Message](toast_message__DOM/index.html) |                           Flexbox & DOM cơ bản                            |          16/02/2022 |
-| [Animation](animation/index.html)              |                     Animation, Transition, Transform                      |          19/02/2022 |
-| [TailwindCSS](tailwind/index.html)             |                                TailwindCSS                                |          21/02/2022 |
-| [Grid System](grid_system/index.html)          |                    Dựng bố cục layout bằng Grid System                    |          27/02/2022 |
-| [Tabs UI](tabs_ui__DOM/index.html)             |                      HTML & CSS nâng cao, DOM cơ bản                      |          09/03/2022 |
+| Tên project                                    |                            Kiến thức vận dụng                             |     Thời gian thực hiện |
+| :--------------------------------------------- | :-----------------------------------------------------------------------: | ----------------------: |
+| [Tribute Page](tribute_page/index.html)        |                             HTML & CSS cơ bản                             |                 06/2021 |
+| [Pokewiki](pokewiki__fetchAPI/index.html)      | CRUD với fetchAPI của JS, Mock API với json-server, Object, Destructuring |              30/01/2022 |
+| [Yugioh Cards](yugioh__BEM/index.html)         |                     Flexbox & DOM cơ bản, Transition                      |              16/02/2022 |
+| [Toast Message](toast_message__DOM/index.html) |                           Flexbox & DOM cơ bản                            |              16/02/2022 |
+| [Animation](animation/index.html)              |                     Animation, Transition, Transform                      |              19/02/2022 |
+| [TailwindCSS](tailwind/index.html)             |                                TailwindCSS                                |              21/02/2022 |
+| [Grid System](grid_system/index.html)          |                    Dựng bố cục layout bằng Grid System                    |              27/02/2022 |
+| [Tabs UI](tabs_ui__DOM/index.html)             |                      HTML & CSS nâng cao, DOM cơ bản                      |              09/03/2022 |
+| [Challenges List](challenges_DOM/index.html)  |          Functional Programming, setInterval, DOM, Import, Regex          | 22/06/2022 - 23/06/2022 |
 
 ## Demo
 
