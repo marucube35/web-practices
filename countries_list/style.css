@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, sans-serif;
+}
+
+h1,
+h2 {
+    margin-bottom: auto;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 60px;
+    letter-spacing: 14px;
+}
+
+p {
+    margin: auto;
+}
+
+.wrapper {
+    width: 70vw;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.countries-count {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.author {
+    font-size: 18px;
+    margin-bottom: 80px;
+}
+
+.countries-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.country-block {
+    display: flex;
+    width: 10%;
+    padding: 90px 36px;
+    margin: 6px;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+}
