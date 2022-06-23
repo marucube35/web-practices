@@ -1,3 +1,11 @@
+export const isPrime = (number) => {
+    for (let i = 2; i <= Math.sqrt(number); i++) {
+        if (number % i == 0)
+            return false
+    }
+    return number > 1
+}
+
 export const randomHexaNumberGenerator = () => {
     let hexa = '#'
     const chars = ['a', 'b', 'c', 'd', 'e', 'f']

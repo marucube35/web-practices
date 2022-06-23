@@ -1,0 +1,30 @@
+body {
+    font-family: Roboto, sans-serif;
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-top: auto;
+}
+
+.wrapper {
+    width: 50vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.numbers-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.number {
+    width: 10%;
+    font-size: 60px;
+    padding: 12px 20px;
+    text-align: center;
+    margin: 4px;
+}
