@@ -66,7 +66,7 @@ for (const link in linksData) {
 // 1.3: description section
 const description = document.createElement('p')
 description.classList.add('description')
-description.style.fontSize = '16px'
+description.style.fontSize = '20px'
 description.innerText =
     'I am a student at Ho Chi Minh University of Science. I am a sophomore and I am currently learning JavaScript for Web Development. I also have a passion for programming and I will learn more about it.'
 
@@ -76,32 +76,89 @@ details.classList.add('details')
 details.style.display = 'flex'
 details.style.justifyContent = 'space-around'
 
-const heading = document.createElement('h1')
-const list = document.createElement('ul')
 const skillsData = {
     'C/C++': 'fab fa-cuttlefish',
     Python: 'fab fa-python',
     JavaScript: 'fab fa-js',
     Database: 'fas fa-database',
-    Network: 'fas fa-network-wired',
-    OOP: 'fa-solid fa-brackets-curly'
+    Network: 'fa-solid fa-network-wired',
+    OOP: 'fa-solid fa-code'
+}
+
+const projectsData = {
+    'Cửu Âm Chân Kinh': 'https://cuuamchankinh.truegit.io/',
+    'Mock Students': 'https://github.com/marucube35/mock_students',
+    'ncov-20CTT3': 'https://github.com/marucube35/ncov-20CTT3',
+    'C++ Static Libraries': 'https://github.com/marucube35/cpp_libraries',
+    'Shopee Clone': 'https://github.com/marucube35/shopee-clone',
+    'The Band Clone': 'https://github.com/marucube35/the-band-clone'
 }
 
 // 2.1: skills section
 const skills = document.createElement('div')
-skills.classList.add('skills')
 
-const skilsHeading = heading.cloneNode(false)
-skilsHeading.innerText = 'Skills'
-skills.appendChild(skilsHeading)
+const skillsHeading = document.createElement('h2')
+skillsHeading.innerText = 'Skills'
+skills.appendChild(skillsHeading)
+
+const skillsList = document.createElement('ul')
+skillsList.classList.add('skills')
+skillsList.style.listStyleType = 'none'
+skillsList.style.padding = '0'
+
+for (const index in skillsData) {
+    const skillElement = document.createElement('li')
+    skillElement.classList.add('skill')
+    skillElement.style.textAlign = 'left'
+    skillElement.style.fontSize = '20px'
+
+    skillElement.innerHTML = `<i class="icon ${skillsData[index]}"></i> <span>${index}</span>`
+    const icon = skillElement.querySelector('.icon')
+    icon.style.width = '32px'
+    icon.style.height = '25px'
+    icon.style.textAlign = 'center'
+    icon.style.color = '#47B5FF'
+
+    skillsList.appendChild(skillElement)
+}
+skills.appendChild(skillsList)
 
 // 2.2: projects section
 const projects = document.createElement('div')
 projects.classList.add('projects')
 
-const projectsHeading = heading.cloneNode(false)
+const projectsHeading = document.createElement('h2')
 projectsHeading.innerText = 'Projects'
 projects.appendChild(projectsHeading)
+
+const projectsList = document.createElement('ul')
+projectsList.classList.add('projects')
+projectsList.style.listStyleType = 'none'
+projectsList.style.padding = '0'
+
+for (const index in projectsData) {
+    const projectElement = document.createElement('li')
+    projectElement.classList.add('project')
+    projectElement.style.textAlign = 'left'
+    projectElement.style.fontSize = '20px'
+
+    projectElement.innerHTML = `🔥 <a href="${projectsData[index]}" target = "blank"> ${index} </a>`
+    const anchor = projectElement.querySelector('a')
+    anchor.style.textDecoration = 'none'
+    anchor.style.color = '#000'
+    anchor.onmouseover = () => {
+        anchor.style.textDecoration = 'underline'
+        anchor.style.color = '#EE81B3'
+    }
+    anchor.onmouseout = () => {
+        anchor.style.textDecoration = 'none'
+        anchor.style.color = '#000'
+    }
+    projectsList.appendChild(projectElement)
+}
+projects.appendChild(projectsList)
+
+// 3. keyword section
 
 // insert into HTML
 info.appendChild(name)
