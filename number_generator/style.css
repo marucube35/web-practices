@@ -4,8 +4,8 @@ body {
 
 h1,
 h2 {
-    text-align: center;
     margin-top: auto;
+    text-align: center;
 }
 
 .wrapper {
@@ -15,7 +15,43 @@ h2 {
     flex-direction: column;
 }
 
-.numbers-box {
+.message {
+    color: #fd5e53;
+}
+
+.form {
+    height: 68px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    width: 604px;
+    padding: 0 10px;
+    font-size: 20px;
+    border-radius: 4px;
+    border: 1px solid #21bf73;
+    height: calc(100% - 20px);
+    margin: 10px 0px 10px 4px;
+}
+
+.button {
+    color: #fff;
+    width: 300px;
+    font-size: 20px;
+    border-radius: 4px;
+    margin: 10px 4px 10px 0;
+    border: 1px solid #21bf73;
+    height: calc(100% - 18px);
+    background-color: #5bbc7a;
+}
+
+.button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.numbers {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -23,8 +59,9 @@ h2 {
 
 .number {
     width: 10%;
-    font-size: 60px;
-    padding: 12px 20px;
-    text-align: center;
     margin: 4px;
+    color: #fff;
+    font-size: 40px;
+    padding: 12px 40px;
+    text-align: center;
 }

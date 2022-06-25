@@ -1,45 +1,86 @@
-import {isPrime} from "../functions/utility.js"
+import { isPrime } from '../functions/utility.js'
 const wrapper = document.querySelector('.wrapper')
 
-// create element for numbers
-const numberElements = ((tagName, quantity) => {
-    const elements = []
-    for (let i = quantity; i >= 0; i--) {
-        const element = document.createElement(tagName)
-        element.innerText = `${i}`
-        element.classList.add('number')
-        elements.push(element)
+// ---- message ----
+const message = document.createElement('p')
+message.classList.add('message')
+wrapper.appendChild(message)
+
+// ---- form ----
+const form = document.createElement('form')
+form.classList.add('form')
+
+// ---- input ----
+const input = document.createElement('input')
+input.classList.add('input')
+input.setAttribute('required', '')
+input.setAttribute('placeholder', 'Enter a number...')
+form.appendChild(input)
+
+// ---- input's event ----
+let inputData = ''
+input.onchange = (e) => {
+    inputData = e.target.value
+}
+
+// ---- button ----
+const button = document.createElement('button')
+button.classList.add('button')
+button.setAttribute('type', 'submit')
+button.innerText = 'Generate numbers'
+form.appendChild(button)
+
+// ---- button's event ----
+button.addEventListener('click', function (e) {
+    if (inputData.match(/[a-z]/g) || inputData.length == 0)
+        message.innerText = 'Please enter a number'
+    else {
+        const numberElements = generateNumber(+inputData)
+        const numberStates = getNumberStates(numberElements)
+        changeNumberBGColor(numberElements, numberStates)
     }
-    return elements
-})('div', 101)
 
-// create box for numbers
-const numbersBox = document.createElement('div')
-numbersBox.classList.add('numbers-box')
-
-// add numbers element into box and insert to HTML
-numberElements.forEach((element) => {
-    numbersBox.insertBefore(element, numbersBox.firstChild)
+    e.preventDefault()
 })
-wrapper.insertBefore(numbersBox, wrapper.childNodes[4])
+wrapper.appendChild(form)
 
-// 0: even, 1: odd, 2: prime
-const numberStates = ((numberElements) => {
-    return numberElements.reduce((states, number, index) => {
+// ---- numbers ----
+const numbers = document.createElement('div')
+numbers.classList.add('numbers')
+
+// create element for numbers
+const generateNumber = (quantity) => {
+    numbers.innerHTML = ''
+
+    for (let i = 0; i <= quantity; i++) {
+        const numberElement = document.createElement('div')
+        numberElement.innerText = `${i}`
+        numberElement.classList.add('number')
+        numbers.appendChild(numberElement)
+    }
+    wrapper.appendChild(numbers)
+    const numberElements = Array.from(document.querySelectorAll('.number'))
+    return numberElements
+}
+
+// get states of element. 0: even, 1: odd, 2: prime
+const getNumberStates = (numberElements) => {
+    const numberStates = numberElements.reduce((states, number, index) => {
         const text = number.innerText
         if (+text % 2 == 0) states[index] = 0
         else if (+text % 2 != 0) states[index] = 1
         if (isPrime(+text)) states[index] = 2
         return states
     }, [])
-})(numberElements)
+    return numberStates
+}
 
-// changing number background color
-const unused = ((elements, states) => {
+// change number background color
+const changeNumberBGColor = (numberElements, numberStates) => {
     const palette = ['#21bf73', '#fddb3a', '#fd5e53']
-    for (let i = 0; i < elements.length; i++) {
-        const element = elements[i]
-        const state = states[i]
-        element.style.backgroundColor = palette[state]
+    for (let i = 0; i < numberElements.length; i++) {
+        const numberElement = numberElements[i]
+        const state = numberStates[i]
+        numberElement.style.backgroundColor = palette[state]
     }
-})(numberElements, numberStates)
+}
