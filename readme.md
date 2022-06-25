@@ -12,7 +12,7 @@
 | [TailwindCSS](tailwind/index.html)              |                              TailwindCSS                              |              21/02/2022 |
 | [Grid System](grid_system/index.html)           |                              Grid system                              |              27/02/2022 |
 | [Tabs UI](tabs_ui__DOM/index.html)              |                            HTML & CSS, DOM                            |              09/03/2022 |
-| [Challenges List](challenges_DOM/index.html)    |        Functional Programming, setInterval, DOM, Import, Regex        | 22/06/2022 - 23/06/2022 |
+| [Challenges List](challenges/index.html)    |        Functional Programming, setInterval, DOM, Import, Regex        | 22/06/2022 - 23/06/2022 |
 | [Number Generator](number_generator/index.html) |      Functional Programming, Self-invoking Function, DOM, Import      |              23/06/2022 |
 
 ## About me
