@@ -1,5 +1,5 @@
 import {
-    randomHexaNumberGenerator,
+    generateHexColor,
     getCurrentDateTime
 } from '../functions/utility.js'
 import challengeDetails from './challengesDetails.js'
@@ -54,7 +54,7 @@ title.innerText = titleTexts.slice(0).join(' ')
 title.appendChild(year)
 
 setInterval(() => {
-    year.style.color = randomHexaNumberGenerator()
+    year.style.color = generateHexColor()
 }, 1000)
 
 // create date and time element
@@ -64,7 +64,7 @@ const setCurrentDateTime = (dateTimeElement) => {
     dateTimeElement.style.borderRadius = `4px`
     dateTimeElement.style.padding = `10px 10px`
     dateTimeElement.style.display = `inline-block`
-    dateTimeElement.style.background = `${randomHexaNumberGenerator()}`
+    dateTimeElement.style.background = `${generateHexColor()}`
     dateTimeElement.innerText = `${getCurrentDateTime()}`
     wrapper.insertBefore(dateTimeElement, wrapper.childNodes[4])
 }

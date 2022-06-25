@@ -1,12 +1,11 @@
 export const isPrime = (number) => {
     for (let i = 2; i <= Math.sqrt(number); i++) {
-        if (number % i == 0)
-            return false
+        if (number % i == 0) return false
     }
     return number > 1
 }
 
-export const randomHexaNumberGenerator = () => {
+export const generateHexColor = () => {
     let hexa = '#'
     const chars = ['a', 'b', 'c', 'd', 'e', 'f']
 
@@ -17,6 +16,14 @@ export const randomHexaNumberGenerator = () => {
     }
 
     return hexa
+}
+
+export const generateRGBColor = (opacity = 1) => {
+    let chars = 'rgb('
+    for (let i = 0; i < 3; i++) {
+        chars += Math.round(1 + Math.random() * 255) + (i == 2 ? '' : ',')
+    }
+    return chars + `, ${opacity})`
 }
 
 export const getCurrentDateTime = () => {

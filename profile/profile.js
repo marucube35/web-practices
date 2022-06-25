@@ -1,3 +1,4 @@
+import { generateRGBColor } from '../functions/utility.js'
 // body section
 const body = document.querySelector('body')
 body.style.fontFamily = 'Roboto'
@@ -159,15 +160,58 @@ for (const index in projectsData) {
 projects.appendChild(projectsList)
 
 // 3. keyword section
+const keywords = document.createElement('div')
+
+const keywordsHeading = document.createElement('h2')
+keywordsHeading.innerText = 'Keywords'
+keywordsHeading.style.textAlign = 'left'
+keywords.appendChild(keywordsHeading)
+
+const keywordsData = [
+    'HTML',
+    'HTML5',
+    'CSS',
+    'CSS3',
+    'JavaScript',
+    'ES6',
+    'Promise',
+    'async await',
+    'Database',
+    'SQL',
+    'API',
+    'DOM',
+    'Python',
+    'Linear Algebra',
+    'Statistics',
+    'DSA',
+    'C/C++'
+]
+
+const keywordsList = document.createElement('div')
+keywordsList.classList.add('keywords')
+keywordsList.style.display = 'flex'
+keywordsList.style.flexWrap = 'wrap'
+
+for (const keyword of keywordsData) {
+    const keywordElement = document.createElement('span')
+    keywordElement.innerText = `# ${keyword}`
+    keywordElement.style.fontSize = '20px'
+    keywordElement.style.backgroundColor = `${generateRGBColor(0.6)}`
+    keywordElement.style.paddingLeft = '10px'
+    keywordElement.style.paddingRight = '10px'
+    keywordElement.style.margin = '0 20px 4px 0'
+    keywordElement.style.borderRadius = '12px'
+    keywordsList.appendChild(keywordElement)
+}
+keywords.appendChild(keywordsList)
 
 // insert into HTML
 info.appendChild(name)
 info.appendChild(links)
 info.appendChild(description)
-profile.appendChild(info)
-
 details.appendChild(skills)
 details.appendChild(projects)
+profile.appendChild(info)
 profile.appendChild(details)
-
+profile.appendChild(keywords)
 wrapper.appendChild(profile)
