@@ -1,0 +1,39 @@
+body {
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+}
+
+.wrapper {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.message {
+    width: 600px;
+    height: 80px;
+    color: #474646;
+    font-size: 40px;
+    line-height: 80px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+.key-name {
+    color: #62bf80;
+    font-weight: 700;
+}
+
+.key-code {
+    color: #5bbc7a;
+    font-size: 80px;
+    min-width: 134px;
+    padding: 60px 12px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+}
