@@ -1,6 +1,6 @@
 html {
-    box-sizing: border-box;
     margin: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -25,23 +25,55 @@ h1 {
 }
 
 form {
-    width: 50%;
+    width: 54%;
     display: flex;
     justify-content: space-between;
 }
 
 .input {
-    height: 40px;
+    border: none;
+    height: 50px;
+    font-size: 18px;
+    padding: 0 10px;
+    border-radius: 2px;
+}
+
+input {
+    width: 294px;
+    outline: none;
+}
+
+select {
+    width: 234px;
+    color: #74746f;
+}
+
+select:focus {
+    outline: none;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+button {
+    color: #fff;
+    width: 160px;
+    background-color: #686968;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .planet {
     margin: 20px;
     display: flex;
+    --size: 100px;
     padding: 60px 30px;
     align-items: center;
     justify-content: center;
     background-color: rgba(77, 74, 74, 0.5);
-    --size: 100px;
 }
 
 .planet-image {
@@ -58,11 +90,11 @@ form {
     display: flex;
     font-size: 22px;
     min-width: 600px;
+    margin-left: 20px;
     padding: 16px 40px;
     align-items: center;
     flex-direction: column;
     background-color: rgb(55, 55, 55, 0.5);
-    margin-left: 20px;
 }
 
 .planet-name {
@@ -71,13 +103,13 @@ form {
 }
 
 .planet-weight {
-    background-color: rgb(74, 74, 73, 0.5);
-    font-weight: bold;
-    font-size: 22px;
     padding: 20px;
+    font-size: 22px;
+    font-weight: bold;
     width: var(--size);
-    height: var(--size);
     border-radius: 50%;
-    line-height: var(--size);
     text-align: center;
+    height: var(--size);
+    line-height: var(--size);
+    background-color: rgb(74, 74, 73, 0.5);
 }
