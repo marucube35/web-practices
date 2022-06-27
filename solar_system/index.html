@@ -9,6 +9,7 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="responsive.css" />
     </head>
     <body>
         <div class="wrapper">
@@ -21,7 +22,7 @@
                         placeholder="Mass in Kilogram"
                     />
                     <select class="input" title="planets">
-                        <option> -- select plane --</option>
+                        <option>-- select planet --</option>
                     </select>
                     <button class="input" type="button">
                         Calculate weight
@@ -37,12 +38,10 @@
                             class="image"
                         />
                     </div>
-                    <div class="planet-description">
-                        <p class="planet-text">
-                            The weight of the object on
-                            <span class="planet-name">Earth</span>
-                        </p>
-                        <div class="planet-weight">980 N</div>
+                    <div class="hidden planet-description">
+                        <p class="planet-text"></p>
+                        <span class="planet-name"></span>
+                        <div class="hidden planet-weight"></div>
                     </div>
                 </div>
             </main>

@@ -22,6 +22,7 @@ header {
 h1 {
     color: #fff;
     font-size: 60px;
+    margin: 30px 20px;
 }
 
 form {
@@ -31,6 +32,7 @@ form {
 }
 
 .input {
+    flex: 1;
     border: none;
     height: 50px;
     font-size: 18px;
@@ -39,13 +41,13 @@ form {
 }
 
 input {
-    width: 294px;
     outline: none;
+    max-width: 294px;
 }
 
 select {
-    width: 234px;
     color: #74746f;
+    max-width: 234px;
 }
 
 select:focus {
@@ -58,7 +60,7 @@ select:hover {
 
 button {
     color: #fff;
-    width: 160px;
+    max-width: 160px;
     background-color: #686968;
 }
 
@@ -67,17 +69,13 @@ button:hover {
 }
 
 .planet {
-    margin: 20px;
     display: flex;
-    --size: 100px;
+    margin: 20px 0;
+    --size: 140px;
     padding: 60px 30px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: rgba(77, 74, 74, 0.5);
-}
-
-.planet-image {
-    margin-right: 20px;
 }
 
 .image {
@@ -90,7 +88,6 @@ button:hover {
     display: flex;
     font-size: 22px;
     min-width: 600px;
-    margin-left: 20px;
     padding: 16px 40px;
     align-items: center;
     flex-direction: column;
@@ -112,4 +109,8 @@ button:hover {
     height: var(--size);
     line-height: var(--size);
     background-color: rgb(74, 74, 73, 0.5);
+}
+
+.hidden {
+    display: none;
 }
