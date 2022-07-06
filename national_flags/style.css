@@ -23,7 +23,7 @@ header {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 4.8rem;
     letter-spacing: 12px;
     text-transform: uppercase;
     margin: 0;
@@ -32,6 +32,7 @@ h1 {
 
 h2 {
     margin: 0;
+    font-size: 1.2rem;
 }
 
 .search {
@@ -39,20 +40,54 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 36%;
 }
 .search-result {
     margin: 0;
 }
 .search-buttons {
-    margin: 16px 0;
+    margin: 16px 0 26px;
 }
-.button{
+.button {
     background-color: #885be4;
     border: none;
-    padding: 8px 14  px;
+    padding: 12px 10px;
+    color: #fff;
+    border-radius: 4px;
+    text-transform: uppercase;
 }
-/* main { */
-/* margin-top: 30px; */
-/* height: 500px; */
-/* background-color: #000; */
-/* } */
+.button:hover {
+    background-color: #521bad;
+    cursor: pointer;
+}
+.search-sort {
+    padding: 12px 18px;
+}
+.search-input {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.search-input-box {
+    padding: 8px 16px;
+    width: 90%;
+    border-radius: 16px;
+    border: none;
+    font-size: 1.1rem;
+}
+.search-input-box:focus {
+    outline: none;
+}
+.search-input-box::placeholder {
+    text-align: center;
+}
+.search-icon {
+    margin-left: 4px;
+    padding: 0.3rem;
+    font-size: 1.2rem;
+    flex: 1;
+}
+.search-icon i:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
