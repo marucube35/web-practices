@@ -7,7 +7,7 @@ message.innerHTML = 'Press any keyboard key <span class="key-name"></span>'
 body.addEventListener('keypress', (e) => {
     let key = e.key
     let code = e.which
-    if (code === 32) key = 'Backspace'
+    if (code === 32) key = 'Spacebar'
 
     const keyName = document.createElement('span')
     keyName.classList.add('key-name')
