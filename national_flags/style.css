@@ -1,0 +1,58 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 62.5%;
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 60vh;
+    color: #fff;
+    background: linear-gradient(rgba(65, 122, 153, 0.5), rgba(31, 44, 61, 0.7)),
+        url('./images/globe-2.jpg') no-repeat center;
+    background-size: cover;
+}
+
+h1 {
+    font-size: 48px;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 800;
+}
+
+h2 {
+    margin: 0;
+}
+
+.search {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.search-result {
+    margin: 0;
+}
+.search-buttons {
+    margin: 16px 0;
+}
+.button{
+    background-color: #885be4;
+    border: none;
+    padding: 8px 14  px;
+}
+/* main { */
+/* margin-top: 30px; */
+/* height: 500px; */
+/* background-color: #000; */
+/* } */

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/f31e1a0778.js" crossorigin="anonymous"></script>
+        <!-- Styles -->
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <header>
+            <h1 class="title">National flags</h1>
+            <h2 class="subtitle">Total number of countries:</h2>
+            <div class="search">
+                <p class="search-result">Countries containing </p>
+                <div class="search-buttons">
+                    <button type="button" class="button search-word">starting word</button>
+                    <button type="button" class="button search-any-word">starting with any word</button>
+                    <button class="button search-sort">
+                        <i class="fa-solid fa-arrow-down-arrow-up"></i>
+                    </button>
+                </div>
+                <div class="search-input">
+                    <input class="search-input-box" placeholder="Search country..."></input>
+                    <span class="search-icon">
+                        <i class="fas fa-magnifying-glass"></i>
+                    </span>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="wrapper">
+                <div class="countries"></div>
+            </div>
+        </main>
+    </body>
+    <script type="module" src="./main.js"></script>
+</html>
