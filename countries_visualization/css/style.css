@@ -108,7 +108,19 @@ main {
     height: 100%;
     background-color: #f2a93b;
     border-radius: 2px;
+    animation: bar-animation 1s ease-in-out normal;
 }
 .item-stat {
     width: 10%;
 }
+
+.hidden {
+    display: none;
+}
+
+@keyframes bar-animation {
+    0% {
+        width: 0;
+    }
+}
+
