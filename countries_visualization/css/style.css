@@ -1,5 +1,8 @@
 :root {
     font-size: 62.5%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -74,26 +77,38 @@ main {
 }
 
 .graphs {
-    height: 400px;
     width: 100%;
     background-color: #efeff0;
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
-}
-
-.graph-wrapper{
     display: flex;
-    align-items: center;
     justify-content: center;
-    width: 100%;
-    margin: 0 20px;
+    align-items: center;
 }
 
-.list{
-    width: 100%;
+.graph-wrapper {
+    width: 90%;
     font-size: 1.6rem;
 }
 
-.item{
+.item {
     display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    align-items: center;
+}
+.item-name {
+    width: 10%;
+}
+.item-bar {
+    width: 75%;
+    height: 3.6rem;
+}
+.item-visualization {
+    height: 100%;
+    background-color: #f2a93b;
+    border-radius: 2px;
+}
+.item-stat {
+    width: 10%;
 }
