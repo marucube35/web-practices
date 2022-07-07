@@ -233,7 +233,7 @@ export const countries_data = [
         area: 38394
     },
     {
-        name: 'Bolivia (Plurinational State of)',
+        name: 'Bolivia (Plurinational State of Bolivia)',
         capital: 'Sucre',
         languages: ['Spanish', 'Aymara', 'Quechua'],
         population: 11673029,
@@ -311,7 +311,7 @@ export const countries_data = [
         area: 151
     },
     {
-        name: 'Virgin Islands (U.S.)',
+        name: 'Virgin Islands (U.S.A)',
         capital: 'Charlotte Amalie',
         languages: ['English'],
         population: 106290,
@@ -482,7 +482,7 @@ export const countries_data = [
         area: 342000
     },
     {
-        name: 'Congo (Democratic Republic of the)',
+        name: 'Congo (Democratic Republic of the Congo)',
         capital: 'Kinshasa',
         languages: ['French', 'Lingala', 'Kongo', 'Swahili', 'Luba-Katanga'],
         population: 89561404,
@@ -966,7 +966,7 @@ export const countries_data = [
         area: 322463
     },
     {
-        name: 'Iran (Islamic Republic of)',
+        name: 'Iran (Islamic Republic of Iran)',
         capital: 'Tehran',
         languages: ['Persian (Farsi)'],
         population: 83992953,
@@ -1305,7 +1305,7 @@ export const countries_data = [
         area: 1964375
     },
     {
-        name: 'Micronesia (Federated States of)',
+        name: 'Micronesia (Federated States of Micronesia)',
         capital: 'Palikir',
         languages: ['English'],
         population: 115021,
@@ -1314,7 +1314,7 @@ export const countries_data = [
         area: 702
     },
     {
-        name: 'Moldova (Republic of)',
+        name: 'Moldova (Republic of Moldova)',
         capital: 'Chișinău',
         languages: ['Romanian'],
         population: 2617820,
@@ -1485,7 +1485,7 @@ export const countries_data = [
         area: 36
     },
     {
-        name: "Korea (Democratic People's Republic of)",
+        name: "Korea (Democratic People's Republic of Korea)",
         capital: 'Pyongyang',
         languages: ['Korean'],
         population: 25778815,
@@ -1897,7 +1897,7 @@ export const countries_data = [
         region: 'Americas'
     },
     {
-        name: 'Korea (Republic of)',
+        name: 'Korea (Republic of Korea)',
         capital: 'Seoul',
         languages: ['Korean'],
         population: 51780579,
@@ -2193,7 +2193,7 @@ export const countries_data = [
         area: 12189
     },
     {
-        name: 'Venezuela (Bolivarian Republic of)',
+        name: 'Venezuela (Bolivarian Republic of Venezuela)',
         capital: 'Caracas',
         languages: ['Spanish'],
         population: 28435943,

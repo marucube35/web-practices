@@ -1,33 +1,33 @@
 body {
-    padding: 0;
     margin: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    font-size: 62.5%;
-    display: flex;
-    flex-direction: column;
-    width: 99%;
+    padding: 0;
+    width: 100%;
     margin: auto;
+    display: flex;
+    font-size: 62.5%;
+    box-sizing: border-box;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
 }
 
 header {
+    color: #fff;
+    height: 60vh;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 60vh;
-    color: #fff;
+    background-size: cover;
+    justify-content: center;
     background: linear-gradient(rgba(65, 122, 153, 0.5), rgba(31, 44, 61, 0.7)),
         url('./images/globe-2.jpg') no-repeat center;
-    background-size: cover;
 }
 
 h1 {
+    margin: 0;
+    font-weight: 800;
     font-size: 4.8rem;
     letter-spacing: 12px;
     text-transform: uppercase;
-    margin: 0;
-    font-weight: 800;
 }
 
 h2 {
@@ -36,58 +36,122 @@ h2 {
 }
 
 .search {
-    font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 36%;
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    flex-direction: column;
 }
+
 .search-result {
     margin: 0;
 }
+
 .search-buttons {
+    width: 58%;
+    display: flex;
     margin: 16px 0 26px;
+    justify-content: space-between;
 }
+
 .button {
-    background-color: #885be4;
+    color: #fff;
     border: none;
     padding: 12px 10px;
-    color: #fff;
     border-radius: 4px;
+    background-color: #885be4;
     text-transform: uppercase;
+    font-weight: bold;
 }
 .button:hover {
-    background-color: #521bad;
     cursor: pointer;
+    background-color: #521bad;
 }
+.button--active{
+    background-color: #521bad;
+}
+
 .search-sort {
     padding: 12px 18px;
 }
+
 .search-input {
     width: 100%;
     display: flex;
     justify-content: center;
 }
+
 .search-input-box {
-    padding: 8px 16px;
     width: 90%;
-    border-radius: 16px;
     border: none;
+    padding: 8px 16px;
     font-size: 1.1rem;
+    border-radius: 16px;
 }
+
 .search-input-box:focus {
     outline: none;
 }
+
 .search-input-box::placeholder {
     text-align: center;
 }
+
 .search-icon {
-    margin-left: 4px;
-    padding: 0.3rem;
-    font-size: 1.2rem;
     flex: 1;
+    padding: 0.3rem;
+    margin-left: 4px;
+    font-size: 1.2rem;
 }
+
 .search-icon i:hover {
     opacity: 0.7;
     cursor: pointer;
 }
+
+main {
+    background-color: #ffffe3;
+}
+
+.countries {
+    margin: 0;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 80px auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.country {
+    color: #fff;
+    padding: 0 8px;
+    width: 12.5%;
+    height: 200px;
+    display: flex;
+    font-size: 1.2rem;
+    margin: 12px 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    align-items: center;
+    background-size: cover;
+    justify-content: center;
+    text-transform: uppercase;
+    background-position: center;
+    background-image: linear-gradient(
+            rgba(65, 122, 153, 0.5),
+            rgba(31, 44, 61, 0.7)
+        ),
+        url('./images/map_image.jpg');
+justify-items: left;
+}
+
+.hidden{
+    display: none;
+}
+
+.padding{
+    background: none
+}
+
