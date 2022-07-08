@@ -3,7 +3,7 @@
 ## Table of contents
 
 | Project's name                                  |                    Time |
-|:----------------------------------------------- | -----------------------:|
+| :---------------------------------------------- | ----------------------: |
 | [Tribute Page](tribute_page/index.html)         |                 06/2021 |
 | [Pokewiki](pokewiki__fetchAPI/index.html)       |              30/01/2022 |
 | [Yugioh Cards](yugioh__BEM/index.html)          |              16/02/2022 |
@@ -16,6 +16,7 @@
 | [Number Generator](number_generator/index.html) |              23/06/2022 |
 | [Profile](profile/index.html)                   |              25/05/2022 |
 | [Keyboard Code](keyboard_code/index.html)       |              26/06/2022 |
+| [Porfolio](porfolio/index.html)                 |              08/07/2022 |
 
 ## About me
 
