@@ -1,9 +1,9 @@
 html {
-    font-family: 'Poppins', sans-serif;
-    padding: 0;
     margin: 0;
-    box-sizing: border-box;
+    padding: 0;
     font-size: 62.5%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -12,9 +12,9 @@ body {
 }
 
 .name {
+    margin: 20px 0;
     font-size: 6rem;
     letter-spacing: 20px;
-    margin: 20px 0;
 }
 
 .description {
@@ -28,72 +28,80 @@ body {
     font-size: 2rem;
     background-color: #eddfde;
 }
+
 .icon-box {
+    display: flex;
     padding: 40px 20px;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
+
 .title {
-    font-weight: normal;
     margin: 0;
-    margin-left: 30px;
-    padding: 30px 0;
-    animation: fadeInFromLeft 1.2s linear;
     display: flex;
-    justify-content: center;
+    padding: 30px 0;
+    margin-left: 30px;
+    font-weight: normal;
     align-items: center;
+    justify-content: center;
+    animation: fadeInFromLeft 1.2s linear;
 }
 
 .text {
     font-size: 2rem;
 }
+
 .link {
     text-decoration: none;
     color: rgb(243, 34, 166);
 }
+
 .link:hover {
     color: rgb(68, 201, 201);
 }
 
 .projects {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
     font-size: 2rem;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }
+
 .project {
     width: 25%;
-    height: 300px;
-    padding: 20px 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 20px;
-    background-color: #fbfbfc;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
-    text-decoration: none;
     color: #000;
-    text-transform: uppercase;
+    margin: 20px;
+    height: 300px;
+    display: flex;
+    padding: 20px 16px;
     border-radius: 4px;
     text-align: center;
+    align-items: center;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fbfbfc;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
 }
+
 .project:hover {
     transform: scale(1.05);
     background-color: #eddfde;
 }
+
 .tags {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .tag {
     margin: 8px;
     padding: 8px;
-    border-radius: 20px;
     font-size: 1.2rem;
+    border-radius: 20px;
     background-color: #ffbecd;
 }
 
@@ -101,22 +109,24 @@ body {
     margin: 16px 0;
     font-size: 2rem;
 }
+
 .skill {
+    margin: 0 8px;
     font-size: 5rem;
     font-weight: bolder;
     text-transform: uppercase;
     animation: fadeIn 1.2s linear;
-    margin: 0 8px;
 }
 
 @keyframes fadeInFromLeft {
     0% {
-        margin-left: -30px;
         opacity: 0;
+        margin-left: -30px;
     }
+
     100% {
-        margin-left: 30px;
         opacity: 1;
+        margin-left: 30px;
     }
 }
 
@@ -124,9 +134,11 @@ body {
     0% {
         opacity: 0;
     }
+
     50% {
         opacity: 0.5;
     }
+
     100% {
         opacity: 1;
     }
