@@ -23,6 +23,7 @@ body {
 .title {
     margin: 20px 0;
     font-size: 4rem;
+    font-weight: 600;
 }
 
 .input-box {
@@ -51,6 +52,15 @@ body {
     cursor: pointer;
 }
 
+.messages {
+    width: 100%;
+}
+.message{
+    font-size: 1.6rem;
+    text-align: center;
+    color: rgb(239, 73, 48);
+}
+
 .users {
     width: 100%;
     display: flex;
@@ -76,7 +86,7 @@ body {
     text-transform: uppercase;
     justify-content: space-between;
 }
-.user-name_date{
+.user-name_date {
     width: 32%;
 }
 .user-name,
@@ -90,6 +100,10 @@ body {
 .user-date {
     color: #948e99;
     font-size: 1.6rem;
+}
+.user-score {
+    width: 40px;
+    text-align: center;
 }
 
 .user-buttons {
