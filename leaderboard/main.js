@@ -139,10 +139,6 @@ const addUser = () => {
         usersData
     )
     displayUser(userData)
-
-    clearInputs()
-    inputState.clearErrors()
-    inputState = inputState.clearState()
 }
 const deleteUser = (e) => {
     const user = e.target.closest('.user')
@@ -183,8 +179,13 @@ const clearInputs = () => {
 const addButtonHandle = () => {
     const addButton = document.querySelector('.add-button')
     addButton.addEventListener('click', () => {
-        if (inputState.isValid()) addUser()
-        else inputState.displayErrors()
+        if (inputState.isValid()) {
+            addUser()
+            sortUsers()
+            clearInputs()
+            inputState.clearErrors()
+            inputState = inputState.clearState()
+        } else inputState.displayErrors()
     })
 }
 
