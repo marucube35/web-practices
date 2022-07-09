@@ -4,53 +4,101 @@ import { usersData } from './data.js'
 // ---- Constants and State ----
 const onlyCharacters = /^[a-zA-Z]*$/gi
 const onlyNumbers = /^[0-9]*$/gi
-const storage = new Array(4).fill('')
-const state = {
-    errors: [1, 1, 1, 1],
-    firstName: '',
-    lastName: '',
-    country: '',
-    score: 0
-}
+const MAX_USERS = 1000
+class InputState {
+    constructor() {
+        this.props = ['firstName', 'lastName', 'country', 'score', 'fullFilled']
+        this.props.forEach((prop) => {
+            this[prop] = {
+                value: '',
+                error: ''
+            }
+        })
+    }
 
-const setState = () => {
-    if (storage[0].match(onlyCharacters)) {
-        state.firstName = storage[0]
-        state.errors[0] = 1
-    } else state.errors[0] = 0
-    if (storage[1].match(onlyCharacters)) {
-        state.lastName = storage[1]
-        state.errors[1] = 1
-    } else state.errors[1] = 0
-    if (storage[2].match(onlyCharacters)) {
-        state.country = storage[2]
-        state.errors[2] = 1
-    } else state.errors[2] = 0
-    if (storage[3].match(onlyNumbers)) {
-        state.score = storage[3]
-        state.errors[3] = 1
-    } else state.errors[3] = 0
-}
+    setState(index, value) {
+        const prop = this.props[index]
+        this[prop].value = value
+    }
+    clearState() {
+        delete this
+        return new InputState()
+    }
 
-const clearState = () => {
-    state.errors.fill(1)
-    state.firstName = ''
-    state.lastName = ''
-    state.country = ''
-    state.score = 0
-}
+    setFullFilled() {
+        this.fullFilled.value = !!(
+            this.firstName.value &&
+            this.lastName.value &&
+            this.country.value &&
+            this.score.value
+        )
+    }
 
-// ---- Queried elements ----
-const users = document.querySelector('.users')
-const inputs = document.querySelectorAll('.input')
-const messageBox = document.querySelector('.messages')
-const addButton = document.querySelector('.add-button')
-const deleteButtons = document.querySelectorAll('.delete-button')
+    setErrors() {
+        this.firstName.value.match(onlyCharacters)
+            ? (this.firstName.error = '')
+            : (this.firstName.error = 'First name must contain only characters')
+        this.lastName.value.match(onlyCharacters)
+            ? (this.lastName.error = '')
+            : (this.lastName.error = 'Last name must contain only characters')
+        this.country.value.match(onlyCharacters)
+            ? (this.country.error = '')
+            : (this.country.error = 'Country must contain only characters')
+        this.score.value.match(onlyNumbers)
+            ? (this.score.error = '')
+            : (this.score.error = 'Score must contain only numbers')
+        this.fullFilled.value
+            ? (this.fullFilled.error = '')
+            : (this.fullFilled.error = 'Please fill all fields')
+    }
+    displayErrors() {
+        this.clearErrors()
+        this.props.forEach((prop) => {
+            if (this[prop].error) {
+                const error = document.createElement('p')
+                error.classList.add('error')
+                error.innerText = this[prop].error
+                errorsBox.appendChild(error)
+            }
+        })
+    }
+    clearErrors() {
+        errorsBox.innerHTML = ``
+    }
+
+    isValid() {
+        this.setFullFilled()
+        this.setErrors()
+        return (
+            !(
+                this.firstName.error ||
+                this.lastName.error ||
+                this.country.error ||
+                this.score.error
+            ) && this.fullFilled.value
+        )
+    }
+}
+let inputState = new InputState()
 
 // ---- Users ----
+const createId = (userData) => {
+    let isDuplicated = true
+    let id = ''
+    while (isDuplicated) {
+        id =
+            userData.firstName.substring(0, 1) +
+            userData.lastName.substring(0, 1) +
+            Math.round(Math.random() * MAX_USERS)
+
+        isDuplicated = usersData.some((userData) => userData.id === id)
+    }
+    userData.id = id
+}
 const displayUser = (userData) => {
     const user = document.createElement('div')
-    user.classList.add('user')
+    user.classList.add(`user`)
+    user.id = userData.id
     user.innerHTML = `
             <div class="user-info">
                 <div class="user-name_date">
@@ -70,69 +118,99 @@ const displayUser = (userData) => {
                 <div class="rounded-button minus-button">-5</div>
             </div>`
     users.appendChild(user)
+    deleteButtonHandle()
 }
-usersData.forEach(displayUser)
-
 const addUser = () => {
-    let { errors, ...user } = state
-    displayUser(user)
+    let { props, fullFilled, itSelf, ...rawUserDatas } = inputState
+    const userData = {}
+    for (const prop in rawUserDatas) {
+        if (prop == 'score')
+            userData[prop] = Number.parseInt(rawUserDatas[prop].value)
+        else userData[prop] = rawUserDatas[prop].value
+    }
+
+    createId(userData)
+    usersData.push(userData)
+    console.log(
+        '🌸 ~ file: main.js ~ line 131 ~ addUser ~ usersData',
+        usersData
+    )
+    displayUser(userData)
 
     clearInputs()
-    clearState()
-    storage.fill('')
+    inputState.clearErrors()
+    inputState = inputState.clearState()
+}
+const deleteUser = (e) => {
+    const user = e.target.closest('.user')
+    users.removeChild(user)
+
+    const userId = user.id
+    for (const userData of usersData) {
+        if (userData.id === userId) {
+            usersData.splice(usersData.indexOf(userData), 1)
+        }
+    }
+    console.log(
+        '🌸 ~ file: main.js ~ line 174 ~ button.addEventListener ~ usersData',
+        usersData
+    )
+}
+const sortUsers = () => {
+    usersData.sort((a, b) => b.score - a.score)
+    usersData.forEach(displayUser)
 }
 
 // ---- Input ----
-inputs.forEach((input, index) => {
-    input.addEventListener('keyup', (e) => {
-        storage[index] = e.target.value
-        setState()
+const inputHandle = () => {
+    inputs.forEach((input, index) => {
+        input.addEventListener('keyup', (e) => {
+            inputState.setState(index, e.target.value)
+        })
     })
-})
-
+}
 const clearInputs = () => {
     inputs.forEach((input) => {
         input.value = ''
     })
 }
 
-// ---- Error messages ----
-const crateMessages = () => {
-    const messages = []
-    if (!state.errors[0]) messages.push('First name can only be letters')
-    if (!state.errors[1]) messages.push('Last name can only be letters')
-    if (!state.errors[2]) messages.push('Country can only be letters')
-    if (!state.errors[3]) messages.push('Score can only be numbers')
-    return messages
-}
-
-const displayMessages = (messages) => {
-    messages.forEach((message) => {
-        const messageElement = document.createElement('p')
-        messageElement.classList.add('message')
-        messageElement.innerHTML = message
-        messageBox.appendChild(messageElement)
-    })
-}
-
-const clearMessages = () => {
-    messageBox.innerHTML = ''
-}
-
 // ---- Add user button ----
-const buttonHandle = () => {
+const addButtonHandle = () => {
+    const addButton = document.querySelector('.add-button')
     addButton.addEventListener('click', () => {
-        const messages = crateMessages()
-        clearMessages()
-
-        if (
-            !(state.firstName && state.lastName && state.country && state.score)
-        )
-            messages.push('Please fill all fields')
-        else messages.pop()
-
-        if (messages.length) displayMessages(messages)
-        else addUser()
+        if (inputState.isValid()) addUser()
+        else inputState.displayErrors()
     })
 }
-buttonHandle()
+
+// ---- Delete user button ----
+const deleteButtonHandle = () => {
+    const deleteButtons = document.querySelectorAll('.delete-button')
+    deleteButtons.forEach((button) => {
+        button.addEventListener('click', deleteUser)
+    })
+}
+
+// ---- Plus and minus buttons ----
+const plusButtonHandle = () => {
+    const plusButtons = document.querySelectorAll('.plus-button')
+    plusButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            const user = button.closest('.user')
+            const userId = user.id
+                
+        })
+    })
+}
+
+// ---- Queried elements ----
+const users = document.querySelector('.users')
+const errorsBox = document.querySelector('.errors')
+const inputs = document.querySelectorAll('.input')
+
+// ---- Main flow ----
+usersData.forEach(createId)
+usersData.forEach(displayUser)
+inputHandle()
+addButtonHandle()
