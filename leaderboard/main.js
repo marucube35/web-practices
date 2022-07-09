@@ -5,6 +5,8 @@ import { usersData } from './data.js'
 const onlyCharacters = /^[a-zA-Z]*$/gi
 const onlyNumbers = /^[0-9]*$/gi
 const MAX_USERS = 1000
+const PLUS = 1
+const MINUS = 2
 class InputState {
     constructor() {
         this.props = ['firstName', 'lastName', 'country', 'score', 'fullFilled']
@@ -119,6 +121,7 @@ const displayUser = (userData) => {
             </div>`
     users.appendChild(user)
     deleteButtonHandle()
+    operationButtonHandle()
 }
 const addUser = () => {
     let { props, fullFilled, itSelf, ...rawUserDatas } = inputState
@@ -158,6 +161,7 @@ const deleteUser = (e) => {
 }
 const sortUsers = () => {
     usersData.sort((a, b) => b.score - a.score)
+    users.innerHTML = ''
     usersData.forEach(displayUser)
 }
 
@@ -193,13 +197,30 @@ const deleteButtonHandle = () => {
 }
 
 // ---- Plus and minus buttons ----
-const plusButtonHandle = () => {
+const operationButtonHandle = () => {
     const plusButtons = document.querySelectorAll('.plus-button')
-    plusButtons.forEach((button) => {
+    const minusButtons = document.querySelectorAll('.minus-button')
+    const operationButtons = [...plusButtons, ...minusButtons]
+    operationButtons.forEach((button) => {
         button.addEventListener('click', (e) => {
             const user = button.closest('.user')
             const userId = user.id
-                
+            for (const userData of usersData) {
+                if (userData.id === userId) {
+                    if (button.classList.contains('plus-button'))
+                        userData.score += 5
+                    else if (button.classList.contains('minus-button'))
+                        userData.score -= 5
+                    user.querySelector('.user-score').innerText = userData.score
+                }
+            }
+
+            sortUsers()
+
+            console.log(
+                '🌸 ~ file: main.js ~ line 207 ~ button.addEventListener ~ usersData',
+                usersData
+            )
         })
     })
 }
@@ -212,5 +233,6 @@ const inputs = document.querySelectorAll('.input')
 // ---- Main flow ----
 usersData.forEach(createId)
 usersData.forEach(displayUser)
+sortUsers()
 inputHandle()
 addButtonHandle()
