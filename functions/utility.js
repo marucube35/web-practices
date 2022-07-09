@@ -54,3 +54,18 @@ export const getCurrentDateTime = () => {
         seconds < 10 ? '0' + seconds : seconds
     }`
 }
+
+export const randomFontSize = (min, max, unit) =>
+    Math.floor(min + Math.random() * (max - min + 1)) + unit
+
+export const randomFontWeight = (min, max) => {
+    return Number.parseInt(
+        Math.floor((min + Math.random() * (max - min + 100)) / 100) * 100
+    )
+}
+
+export const randomFontFamily = (families) => {
+    return `${
+        families[Math.floor(Math.random() * families.length)]
+    }, sans-serif`
+}
