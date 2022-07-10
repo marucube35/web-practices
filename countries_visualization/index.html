@@ -18,19 +18,72 @@
         </header>
         <main>
             <div class="wrapper">
-                <div class="graph-buttons">
-                    <button type="button" class="population button">
-                        Population
-                    </button>
-                    <button type="button" class="languages button">
-                        Languages
-                    </button>
+                <div id="countries-section">
+                    <div class="search">
+                        <input
+                            type="text"
+                            class="search-box"
+                            placeholder="Search countries by name, city and languages"
+                        />
+                    </div>
+                    <div class="sort">
+                        <div class="sort-buttons">
+                            <button type="button" class="sort-by-name button">
+                                Name
+                            </button>
+                            <button
+                                type="button"
+                                class="sort-by-capital button"
+                            >
+                                Capital
+                            </button>
+                            <button
+                                type="button"
+                                class="sort-by-population button"
+                            >
+                                Population
+                            </button>
+                        </div>
+                        <a class="graph-navigation" href="#graph-section">
+                            <img
+                                class="graph-navigation-icon"
+                                alt="Graph Symbol"
+                                src="https://img.icons8.com/external-anggara-flat-anggara-putra/64/000000/external-graph-business-and-finance-anggara-flat-anggara-putra.png"
+                            />
+                        </a>
+                    </div>
+                    <div class="countries">
+                        <div class="country">
+                            <div class="flag">
+                                <img
+                                    alt="World map icon"
+                                    src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-world-map-contact-us-flaticons-lineal-color-flat-icons.png"
+                                />
+                            </div>
+                            <div class="name">Việt Nam</div>
+                            <div class="infos">
+                                <p>Capital: Hà Nội</p>
+                                <p>Population: 9.6 million</p>
+                                <p>Languages: Tiếng Việt</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h4 class="graph-title">
-                    10 Most populated countries in the world
-                </h4>
-                <div class="graphs">
-                    <div class="graph-wrapper" id="stat"></div>
+                <div id="graph-section">
+                    <div class="graph-buttons">
+                        <button type="button" class="population button">
+                            Population
+                        </button>
+                        <button type="button" class="languages button">
+                            Languages
+                        </button>
+                    </div>
+                    <h4 class="graph-title">
+                        10 Most populated countries in the world
+                    </h4>
+                    <div class="graphs-wrapper" id="stat">
+                        <div class="graphs"></div>
+                    </div>
                 </div>
             </div>
         </main>

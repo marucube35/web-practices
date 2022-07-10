@@ -1,29 +1,43 @@
 import { countries_data } from '../data/countries_data.js'
 
-// ---- Subtitle section ----
+// ---- Subtitle ----
 const subtitle = document.querySelector('.subtitle')
 subtitle.innerText = `Currently, we have ${countries_data.length} countries`
 
-// ---- Graps section ----
-const graphWrapper = document.querySelector('.graph-wrapper')
+// ---- Countries ----
+const countries = document.querySelector('.countries')
+countries_data.forEach((countryData) =>{
+    const country = document.createElement('div')
+    country.classList.add(`country`)
+    
+    const flag = document.createElement('div')
+    flag.classList.add(`flag`)
+    
+})
 
+
+
+
+
+// ---- Graphs ----
 // Need to be in setTimeout to make sure the graph is rendered
 const calculateVisualizationWidth = (value, total) => {
-    const BAR_WIDTH = 0.75 * graphWrapper.clientWidth
+    const BAR_WIDTH = 0.75 * graphs.clientWidth
     return `${BAR_WIDTH * (value / total)}px`
 }
 
-const visualize = (data, statName, baseStat) => {
+const visualizeGraph = (data, statName, baseStat) => {
+    const graphs = document.querySelector('.graphs')
     data.forEach((item) => {
         const element = document.createElement('div')
-        element.classList.add(`item`)
+        element.classList.add(`graph`)
 
         const name = document.createElement('span')
-        name.classList.add(`item-name`)
+        name.classList.add(`graph-name`)
         name.innerText = `${item.name}`
 
         const visualization = document.createElement('div')
-        visualization.classList.add(`item-visualization`)
+        visualization.classList.add(`graph-visualization`)
         setTimeout(() => {
             visualization.style.width = calculateVisualizationWidth(
                 item[statName],
@@ -32,21 +46,21 @@ const visualize = (data, statName, baseStat) => {
         }, 0)
 
         const bar = document.createElement('div')
-        bar.classList.add(`item-bar`)
+        bar.classList.add(`graph-bar`)
         bar.appendChild(visualization)
 
         const stat = document.createElement('span')
-        stat.classList.add(`item-stat`)
+        stat.classList.add(`graph-stat`)
         stat.innerText = `${item[statName]}`
 
         element.appendChild(name)
         element.appendChild(bar)
         element.appendChild(stat)
-        graphWrapper.appendChild(element)
+        graphs.appendChild(element)
     })
 }
 
-// ---- Countries section ----
+// ---- Countries visualization ----
 const topTenCountries = countries_data
     .sort((a, b) => b.population - a.population)
     .slice(0, 10)
@@ -61,9 +75,9 @@ const totalPopulation = countries_data.reduce((acc, curr) => {
 }, 0)
 topTenCountries.unshift({ name: 'World', population: totalPopulation })
 
-visualize(topTenCountries, 'population', totalPopulation)
+visualizeGraph(topTenCountries, 'population', totalPopulation)
 
-// ---- Languages section ----
+// ---- Languages visualization ----
 const languages = countries_data
     .reduce((acc, country) => {
         return acc.concat(country.languages)
@@ -87,11 +101,11 @@ const populationButton = document.querySelector('.population.button')
 const languagesButton = document.querySelector('.languages.button')
 
 populationButton.addEventListener('click', (e) => {
-    graphWrapper.innerHTML = ''
-    visualize(topTenCountries, 'population', totalPopulation)
+    graphs.innerHTML = ''
+    visualizeGraph(topTenCountries, 'population', totalPopulation)
 })
 
 languagesButton.addEventListener('click', (e) => {
-    graphWrapper.innerHTML = ''
-    visualize(topTenLanguages, 'occurences', topTenLanguages[0].occurences)
+    graphs.innerHTML = ''
+    visualizeGraph(topTenLanguages, 'occurences', topTenLanguages[0].occurences)
 })
