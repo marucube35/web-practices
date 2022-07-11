@@ -6,20 +6,39 @@ subtitle.innerText = `Currently, we have ${countries_data.length} countries`
 
 // ---- Countries ----
 const countries = document.querySelector('.countries')
-countries_data.forEach((countryData) =>{
+countries_data.forEach((countryData) => {
     const country = document.createElement('div')
     country.classList.add(`country`)
-    
+
     const flag = document.createElement('div')
-    flag.classList.add(`flag`)
-    
+    flag.classList.add(`country-flag`)
+
+    const image = document.createElement('img')
+    image.src = `${countryData.flag}`
+    flag.appendChild(image)
+
+    const name = document.createElement('h3')
+    name.classList.add(`country-name`)
+    name.innerText = `${countryData.name}`
+
+    const infos = document.createElement('div')
+    infos.classList.add(`country-infos`)
+
+    infos.innerHTML = `
+        <p>Capital: ${countryData.capital}</p>
+        <p>Languages: ${countryData.languages.join(', ')}</p>
+        <p>Population: ${countryData.population}</p>
+    `
+
+    country.appendChild(flag)
+    country.appendChild(name)
+    country.appendChild(infos)
+    countries.appendChild(country)
 })
 
-
-
-
-
 // ---- Graphs ----
+const graphs = document.querySelector('.graphs')
+
 // Need to be in setTimeout to make sure the graph is rendered
 const calculateVisualizationWidth = (value, total) => {
     const BAR_WIDTH = 0.75 * graphs.clientWidth
@@ -27,7 +46,6 @@ const calculateVisualizationWidth = (value, total) => {
 }
 
 const visualizeGraph = (data, statName, baseStat) => {
-    const graphs = document.querySelector('.graphs')
     data.forEach((item) => {
         const element = document.createElement('div')
         element.classList.add(`graph`)
