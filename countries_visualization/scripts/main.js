@@ -1,48 +1,86 @@
 import { countries_data } from '../data/countries_data.js'
 
-const countriesData = [...countries_data]
 const state = {
+    countriesData: countries_data,
     sortType: 'default', //default = name
     sortOrder: 'default' // default = asc
 }
 
 // ---- Subtitle ----
-const subtitle = document.querySelector('.subtitle')
-subtitle.innerText = `Currently, we have ${countries_data.length} countries`
+const setSubtitle = () => {
+    const subtitle = document.querySelector('.subtitle')
+    subtitle.innerText = `Currently, we have ${countries_data.length} countries`
+}
+setSubtitle()
 
 // ---- Countries ----
 const countries = document.querySelector('.countries')
-countriesData.forEach((countryData) => {
-    const country = document.createElement('div')
-    country.classList.add(`country`)
+const visualizeCountries = () => {
+    countries.innerHTML = ''
+    state.countriesData.forEach((countryData) => {
+        const country = document.createElement('div')
+        country.classList.add(`country`)
 
-    const flag = document.createElement('div')
-    flag.classList.add(`country-flag`)
+        const flag = document.createElement('div')
+        flag.classList.add(`country-flag`)
 
-    const image = document.createElement('img')
-    image.src = `${countryData.flag}`
-    flag.appendChild(image)
+        const image = document.createElement('img')
+        image.src = `${countryData.flag}`
+        flag.appendChild(image)
 
-    const name = document.createElement('h3')
-    name.classList.add(`country-name`)
-    name.innerText = `${countryData.name}`
+        const name = document.createElement('h3')
+        name.classList.add(`country-name`)
+        name.innerText = `${countryData.name}`
 
-    const infos = document.createElement('div')
-    infos.classList.add(`country-infos`)
+        const infos = document.createElement('div')
+        infos.classList.add(`country-infos`)
 
-    infos.innerHTML = `
-        <p>Capital: ${countryData.capital}</p>
+        infos.innerHTML = `
+        <p>Capital: ${countryData.capital || ' '}</p>
         <p>Languages: ${countryData.languages.join(', ')}</p>
         <p>Population: ${countryData.population}</p>
-    `
+        `
 
-    country.appendChild(flag)
-    country.appendChild(name)
-    country.appendChild(infos)
-    countries.appendChild(country)
+        country.appendChild(flag)
+        country.appendChild(name)
+        country.appendChild(infos)
+        countries.appendChild(country)
+    })
+}
+visualizeCountries()
+
+// ---- Search handle ----
+const searchCountries = (pattern) => {
+    state.countriesData = countries_data.filter((countryData) => {
+        return countryData.name.match(pattern)
+    })
+}
+const searchBox = document.querySelector('.search-box')
+searchBox.addEventListener('keyup', (e) => {
+    const input = e.target.value
+    const pattern = new RegExp(`${input}`, 'gi')
+
+    searchCountries(pattern)
+    visualizeCountries()
 })
-
 // ---- Sort buttons ----
+const sortCountries = (type, order) => {
+    state.countriesData.sort((a, b) => {
+        a.capital = a.capital || ' '
+        b.capital = b.capital || ' '
+
+        if (order == 'asc') {
+            if (type == 'name' || type == 'capital')
+                return a[type].localeCompare(b[type])
+            return a[type] - b[type]
+        } else {
+            if (type == 'name' || type == 'capital')
+                return b[type].localeCompare(a[type])
+            return b[type] - a[type]
+        }
+    })
+}
+
 const sortByName = document.querySelector('.sort-by-name')
 const sortByCapital = document.querySelector('.sort-by-capital')
 const sortByPopulation = document.querySelector('.sort-by-population')
@@ -69,19 +107,25 @@ const setOrder = (button) => {
 sortByName.addEventListener('click', (e) => {
     setSortType('name')
     setOrder(e.target)
-    console.log(state)
+
+    sortCountries(state.sortType, state.sortOrder)
+    visualizeCountries()
 })
 
 sortByCapital.addEventListener('click', (e) => {
     setSortType('capital')
     setOrder(e.target)
-    console.log(state)
+
+    sortCountries(state.sortType, state.sortOrder)
+    visualizeCountries()
 })
 
 sortByPopulation.addEventListener('click', (e) => {
     setSortType('population')
     setOrder(e.target)
-    console.log(state)
+
+    sortCountries(state.sortType, state.sortOrder)
+    visualizeCountries()
 })
 
 // ---- Graphs ----
@@ -93,7 +137,7 @@ const calculateVisualizationWidth = (value, total) => {
     return `${BAR_WIDTH * (value / total)}px`
 }
 
-const visualizeGraph = (data, statName, baseStat) => {
+const visualizeGraphs = (data, statName, baseStat) => {
     data.forEach((item) => {
         const element = document.createElement('div')
         element.classList.add(`graph`)
@@ -127,7 +171,7 @@ const visualizeGraph = (data, statName, baseStat) => {
 }
 
 // ---- Countries visualization ----
-const topTenCountries = countries_data
+const topTenCountries = Array.from(countries_data)
     .sort((a, b) => b.population - a.population)
     .slice(0, 10)
     .map(({ name, population }) => {
@@ -141,7 +185,7 @@ const totalPopulation = countries_data.reduce((acc, curr) => {
 }, 0)
 topTenCountries.unshift({ name: 'World', population: totalPopulation })
 
-visualizeGraph(topTenCountries, 'population', totalPopulation)
+visualizeGraphs(topTenCountries, 'population', totalPopulation)
 
 // ---- Languages visualization ----
 const languages = countries_data
@@ -168,10 +212,14 @@ const languagesButton = document.querySelector('.languages.button')
 
 populationButton.addEventListener('click', (e) => {
     graphs.innerHTML = ''
-    visualizeGraph(topTenCountries, 'population', totalPopulation)
+    visualizeGraphs(topTenCountries, 'population', totalPopulation)
 })
 
 languagesButton.addEventListener('click', (e) => {
     graphs.innerHTML = ''
-    visualizeGraph(topTenLanguages, 'occurences', topTenLanguages[0].occurences)
+    visualizeGraphs(
+        topTenLanguages,
+        'occurences',
+        topTenLanguages[0].occurences
+    )
 })
