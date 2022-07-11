@@ -1,12 +1,18 @@
 import { countries_data } from '../data/countries_data.js'
 
+const countriesData = [...countries_data]
+const state = {
+    sortType: 'default', //default = name
+    sortOrder: 'default' // default = asc
+}
+
 // ---- Subtitle ----
 const subtitle = document.querySelector('.subtitle')
 subtitle.innerText = `Currently, we have ${countries_data.length} countries`
 
 // ---- Countries ----
 const countries = document.querySelector('.countries')
-countries_data.forEach((countryData) => {
+countriesData.forEach((countryData) => {
     const country = document.createElement('div')
     country.classList.add(`country`)
 
@@ -34,6 +40,48 @@ countries_data.forEach((countryData) => {
     country.appendChild(name)
     country.appendChild(infos)
     countries.appendChild(country)
+})
+
+// ---- Sort buttons ----
+const sortByName = document.querySelector('.sort-by-name')
+const sortByCapital = document.querySelector('.sort-by-capital')
+const sortByPopulation = document.querySelector('.sort-by-population')
+const sortButtons = [sortByName, sortByCapital, sortByPopulation]
+
+const setSortType = (type) => {
+    state.sortType = type
+    sortButtons
+        .filter((button) => button.innerText.toLowerCase() != type)
+        .forEach((button) => {
+            button.innerHTML = button.innerText
+        })
+}
+const setOrder = (button) => {
+    if (state.sortOrder != 'asc') {
+        state.sortOrder = 'asc'
+        button.innerHTML = `${state.sortType} <i class="icon fas fa-arrow-down-long"></i>`
+    } else {
+        state.sortOrder = 'desc'
+        button.innerHTML = `${state.sortType} <i class="icon fas fa-arrow-up-long"></i>`
+    }
+}
+
+sortByName.addEventListener('click', (e) => {
+    setSortType('name')
+    setOrder(e.target)
+    console.log(state)
+})
+
+sortByCapital.addEventListener('click', (e) => {
+    setSortType('capital')
+    setOrder(e.target)
+    console.log(state)
+})
+
+sortByPopulation.addEventListener('click', (e) => {
+    setSortType('population')
+    setOrder(e.target)
+    console.log(state)
 })
 
 // ---- Graphs ----
