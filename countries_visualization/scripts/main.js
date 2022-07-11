@@ -50,19 +50,33 @@ const visualizeCountries = () => {
 visualizeCountries()
 
 // ---- Search handle ----
+const setFeedback = (number) => {
+    const feedback = document.querySelector('.feedback')
+    if (number == 0) {
+        feedback.innerText = 'No results'
+    } else if (number === countries_data.length) {
+        feedback.innerText = ''
+    } else {
+        feedback.innerText = `${number} countries satisified the search criteria`
+    }
+}
+
 const searchCountries = (pattern) => {
     state.countriesData = countries_data.filter((countryData) => {
         return countryData.name.match(pattern)
     })
+    return state.countriesData.length
 }
 const searchBox = document.querySelector('.search-box')
 searchBox.addEventListener('keyup', (e) => {
     const input = e.target.value
     const pattern = new RegExp(`${input}`, 'gi')
 
-    searchCountries(pattern)
+    const resultNumber = searchCountries(pattern)
+    setFeedback(resultNumber)
     visualizeCountries()
 })
+
 // ---- Sort buttons ----
 const sortCountries = (type, order) => {
     state.countriesData.sort((a, b) => {
@@ -207,16 +221,23 @@ const topTenLanguages = sortableLanguages
     .slice(0, 10)
 
 // ---- Event handler ----
+const setGraphTitle = (name) => {
+    const graphTitle = document.querySelector('.graph-title')
+    graphTitle.innerText = `Ten most ${name} in the world`
+}
+
 const populationButton = document.querySelector('.population.button')
 const languagesButton = document.querySelector('.languages.button')
 
 populationButton.addEventListener('click', (e) => {
     graphs.innerHTML = ''
+    setGraphTitle('populated countries')
     visualizeGraphs(topTenCountries, 'population', totalPopulation)
 })
 
 languagesButton.addEventListener('click', (e) => {
     graphs.innerHTML = ''
+    setGraphTitle('popular languages')
     visualizeGraphs(
         topTenLanguages,
         'occurences',
