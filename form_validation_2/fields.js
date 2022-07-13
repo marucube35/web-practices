@@ -2,25 +2,25 @@ export const fields = [
     {
         name: 'Full name',
         placeholder: 'Example: Camille Ferros',
-        pattern: '',
-        error: ''
+        pattern: /^[a-zA-z]+$/gi,
+        error: 'Full name only contains character'
     },
     {
         name: 'Email',
         placeholder: 'Example: email@domain.com',
-        pattern: '',
-        error: ''
+        pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gi,
+        error: 'Email is invalid'
     },
     {
         name: 'Password',
         placeholder: 'Enter password',
-        pattern: '',
-        error: ''
+        pattern: /.{6,}/g,
+        error: "Password's length must be more than six characters"
     },
     {
-        name: 'Reenter password',
-        placeholder: 'Reenter password',
-        pattern: '',
-        error: ''
+        name: 'Confirm password',
+        placeholder: 'Confirm password',
+        pattern: /^[a-zA-Z0-9@_-]+$/gi,
+        error: 'Password must be alphanumeric (@, _ and - are allowed)'
     }
 ]

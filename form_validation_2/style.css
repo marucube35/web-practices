@@ -48,13 +48,13 @@ body {
     margin: 12px 0;
 }
 
-.forms {
+.form {
     margin: 8px 0;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-.form {
+.form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 16px;
