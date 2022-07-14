@@ -77,9 +77,9 @@ const app = {
         const field = this.fields[fieldID]
 
         const select = $$$('select')
-        select.id = 'form-province'
-        select.name = 'province'
-        select.classList.add('form-province')
+        select.id = fieldID
+        select.name = fieldID
+        select.classList.add('form-options')
 
         field.inputs.forEach((input) => {
             const option = $$$('option')
