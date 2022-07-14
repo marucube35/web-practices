@@ -8,14 +8,62 @@
     </head>
     <body>
         <div class="wrapper">
-            <form action="" method="post" class="form" id="form-1">
-                <h2 class="form-title">Registration Form</h2>
-                <h4 class="form-subtitle">🚀 Let start a new adventure 💖</h4>
-                <div class="form-inputs"></div>
-                <button type="submit" class="form-button">Register</button>
+            <form action="" method="POST" class="form" id="register-form">
+                <h3 class="heading">Thành viên đăng ký</h3>
+                <p class="desc">Cùng nhau học lập trình miễn phí tại F8 ❤️</p>
+
+                <div class="spacer"></div>
+
+                <div class="form-group">
+                    <label for="fullname" class="form-label">Tên đầy đủ</label>
+                    <input
+                        id="fullname"
+                        name="fullname"
+                        type="text"
+                        placeholder="VD: Minh Quân"
+                        class="form-control"
+                        rules="required"
+                    />
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="text"
+                        placeholder="VD: email@domain.com"
+                        class="form-control"
+                        rules="required|email"
+                    />
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Nhập mật khẩu"
+                        class="form-control"
+                        rules="required|min:6"
+                    />
+                    <span class="form-message"></span>
+                </div>
+
+                <button type="submit" class="form-submit">Đăng ký</button>
             </form>
         </div>
 
-        <script type="module" src="./validator.js"></script>
+        <script src="./validator.js"></script>
+        <script>
+            const formData = new Validator('#register-form')
+            
+            formData.onSubmit = function (data) {
+                console.log(data)
+            }
+        </script>
     </body>
 </html>
