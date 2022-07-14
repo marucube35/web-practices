@@ -123,7 +123,8 @@ const app = {
 
     appendInputs: function (formGroup, fieldID) {
         const field = this.fields[fieldID]
-        if (field.type === 'radio') this.appendRadioInputs(formGroup, fieldID)
+        if (field.type === 'radio' || field.type === 'checkbox')
+            this.appendRadioInputs(formGroup, fieldID)
         else if (field.type === 'select') this.appendOptions(formGroup, fieldID)
         else {
             field.inputs.forEach((input) => {
@@ -238,7 +239,7 @@ const app = {
                 }
 
                 // -- When typing --
-                inputElement.oninput = function () {
+                function removeError() {
                     const formGroup = inputElement.closest(
                         app.configs.formGroupSelector
                     )
@@ -249,6 +250,8 @@ const app = {
                     messageElement.innerText = ''
                     formGroup.classList.remove(app.configs.invalidClass)
                 }
+                inputElement.oninput = removeError
+                inputElement.onblur = removeError
             })
         })
 
@@ -265,27 +268,34 @@ const app = {
             const formElement = $(app.configs.formSelector)
             if (isValidForm) {
                 if (typeof app.onSubmit === 'function') {
-                    const enableInputs = $(
-                        app.configs.inputsSelector
-                    ).querySelectorAll('[name]')
-
-                    const inputValues = Array.from(enableInputs).reduce(
-                        (fields, input) => {
-                            switch (input.type) {
-                                case 'radio':
-                                case 'checkbox':
-                                    fields[input.name] =
-                                        formElement.querySelector(
-                                            `input[name="${input.name}"]:checked`
-                                        ).value
-                                    break
-                                default:
-                                    fields[input.name] = input.value
-                            }
-                            return fields
-                        },
-                        {}
+                    const enableInputs = Array.from(
+                        $(app.configs.inputsSelector).querySelectorAll('[name]')
                     )
+
+                    const inputValues = enableInputs.reduce((fields, input) => {
+                        switch (input.type) {
+                            case 'radio':
+                                const radioElement = formElement.querySelector(
+                                    `input[name="${input.name}"]:checked`
+                                )
+                                radioElement
+                                    ? (fields[input.name] = radioElement.value)
+                                    : ''
+                                break
+                            case 'checkbox':
+                                if (!input.matches(':checked')) return fields
+                                if (!Array.isArray(fields[input.name]))
+                                    fields[input.name] = []
+                                fields[input.name].push(input.value)
+                                break
+                            case 'file':
+                                fields[input.name] = input.files
+                                break
+                            default:
+                                fields[input.name] = input.value
+                        }
+                        return fields
+                    }, {})
 
                     app.onSubmit(inputValues)
                 } else {
@@ -300,39 +310,43 @@ const app = {
             // ---- Data & rules ----
             fields,
             rules: [
+                // {
+                //     selector: '#full-name-input',
+                //     validator: Validator.isFullFilled()
+                // },
+                // {
+                //     selector: '#email-input',
+                //     validator: Validator.isFullFilled()
+                // },
+                // {
+                //     selector: '#email-input',
+                //     validator: Validator.isEmail('Email is invalid')
+                // },
+                // {
+                //     selector: '#password-input',
+                //     validator: Validator.minLength(
+                //         'Characters in password must be more than ',
+                //         6
+                //     )
+                // },
+                // {
+                //     selector: '#confirm-password-input',
+                //     validator: Validator.isFullFilled()
+                // },
+                // {
+                //     selector: '#confirm-password-input',
+                //     validator: Validator.isMatched('Passwords are not matched')
+                // },
+                // {
+                //     selector: 'input[name="gender"]',
+                //     validator: Validator.isFullFilled()
+                // },
+                // {
+                //     selector: '#form-province',
+                //     validator: Validator.isFullFilled()
+                // },
                 {
-                    selector: '#full-name-input',
-                    validator: Validator.isFullFilled()
-                },
-                {
-                    selector: '#email-input',
-                    validator: Validator.isFullFilled()
-                },
-                {
-                    selector: '#email-input',
-                    validator: Validator.isEmail('Email is invalid')
-                },
-                {
-                    selector: '#password-input',
-                    validator: Validator.minLength(
-                        'Characters in password must be more than ',
-                        6
-                    )
-                },
-                {
-                    selector: '#confirm-password-input',
-                    validator: Validator.isFullFilled()
-                },
-                {
-                    selector: '#confirm-password-input',
-                    validator: Validator.isMatched('Passwords are not matched')
-                },
-                {
-                    selector: 'input[name="gender"]',
-                    validator: Validator.isFullFilled()
-                },
-                {
-                    selector: '#form-province',
+                    selector: '#avatar-input',
                     validator: Validator.isFullFilled()
                 }
             ],

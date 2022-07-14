@@ -76,5 +76,15 @@ export const fields = {
             }
         ],
         type: 'radio'
+    },
+    avatar:{
+        inputs:[
+            {
+                placeholder: 'Choose a picture',
+                type: 'file',
+                name: 'avatar',
+                id: 'avatar-input'
+            }
+        ]
     }
 }
