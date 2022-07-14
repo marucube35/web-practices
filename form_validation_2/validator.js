@@ -3,7 +3,12 @@ const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gi
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
+const $$$ = document.createElement.bind(document)
 const button = $('.form-button')
+
+String.prototype.capitalize = function () {
+    return this.at(0).toUpperCase() + this.slice(1)
+}
 
 export class Validator {
     static selectorRules = {}
@@ -16,7 +21,7 @@ export class Validator {
         return {
             check: function (value) {
                 if (value) return undefined
-                return message
+                return message || 'This field can not be emty'
             }
         }
     }
@@ -61,58 +66,106 @@ const app = {
         Object.assign(this, options)
     },
 
-    createRadioInputs: function (label, ...names) {
-        const radioInputs = names.reduce((inputs, name) => {
-            return (
-                inputs +
-                `<input class="form-radio-input"
-            name="gender"
-            title=${name}
-            type="radio">
-            </input>
-            <span class="form-radio-name">${name}</span>
-            `
-            )
-        }, '')
+    appendLabel: function (formGroup, fieldID) {
+        const label = $$$('label')
+        label.classList.add('form-label')
+        label.innerText = fieldID.replace('-', ' ').capitalize()
+        formGroup.appendChild(label)
+    },
 
-        return `
-        <div class="form-group">
-        <label class="form-label">${label}</label>
-        <div class="form-radio-inputs">
-        ${radioInputs}
-        </div>
-        <p class="form-message"></p>
-        </div>
-        `
+    appendOptions: function (formGroup, fieldID) {
+        const field = this.fields[fieldID]
+
+        const select = $$$('select')
+        select.id = 'form-province'
+        select.name = 'province'
+        select.classList.add('form-province')
+
+        field.inputs.forEach((input) => {
+            const option = $$$('option')
+            option.classList.add('form-option')
+            option.innerText = input.text
+
+            for (const attr in input) {
+                if (attr != 'text') option.setAttribute(attr, input[attr])
+            }
+
+            select.appendChild(option)
+        })
+
+        formGroup.appendChild(select)
+    },
+
+    appendRadioInputs: function (formGroup, fieldID) {
+        const field = this.fields[fieldID]
+
+        const radioInputs = $$$('div')
+        radioInputs.classList.add('form-radio-inputs')
+
+        field.inputs.forEach((input) => {
+            const radioInput = $$$('input')
+            radioInput.classList.add('form-radio-input')
+
+            for (const attr in input) {
+                radioInput.setAttribute(attr, input[attr])
+            }
+
+            const radioName = $$$('p')
+            radioName.classList.add('form-radio-name')
+            radioName.innerText = input.value.capitalize()
+
+            radioInputs.appendChild(radioInput)
+            radioInputs.appendChild(radioName)
+        })
+
+        formGroup.appendChild(radioInputs)
+    },
+
+    appendInputs: function (formGroup, fieldID) {
+        const field = this.fields[fieldID]
+        if (field.type === 'radio') this.appendRadioInputs(formGroup, fieldID)
+        else if (field.type === 'select') this.appendOptions(formGroup, fieldID)
+        else {
+            field.inputs.forEach((input) => {
+                const inputElement = $$$('input')
+                inputElement.classList.add('form-input')
+
+                for (const attr in input) {
+                    inputElement.setAttribute(attr, input[attr])
+                }
+
+                formGroup.appendChild(inputElement)
+            })
+        }
+    },
+
+    appendMessage: function (formGroup) {
+        const messageElement = $$$('p')
+        messageElement.classList.add(
+            this.configs.formMessageSelector.replace('.', '')
+        )
+        formGroup.appendChild(messageElement)
+    },
+
+    createFormGroup: function (fieldID) {
+        const formGroup = $$$('div')
+        formGroup.classList.add(this.configs.formGroupSelector.replace('.', ''))
+
+        this.appendLabel(formGroup, fieldID)
+        this.appendInputs(formGroup, fieldID)
+        this.appendMessage(formGroup)
+
+        return formGroup
     },
 
     renderForm: function () {
         const formInputs = $(this.configs.inputsSelector)
 
         for (const fieldID in this.fields) {
-            const field = this.fields[fieldID]
+            const formGroup = this.createFormGroup(fieldID)
 
-            const formGroupElement = `
-            <div class="form-group">
-                <label class="form-label" for="${fieldID}-input">${field.name}</label>
-                <input class="form-input" 
-                id="${fieldID}-input" 
-                name="${fieldID}"
-                placeholder="${field.placeholder}"
-                type="${field.type}">
-                </input>
-                <p class="form-message"></p>
-            </div>
-            `
-            formInputs.innerHTML += formGroupElement
+            formInputs.appendChild(formGroup)
         }
-
-        formInputs.innerHTML += this.createRadioInputs(
-            'Gender',
-            'Male',
-            'Female',
-            'Other'
-        )
     },
 
     renderMessage: function (message, formGroupElement) {
@@ -209,20 +262,33 @@ const app = {
                 if (!isValidInput) isValidForm = false
             })
 
+            const formElement = $(app.configs.formSelector)
             if (isValidForm) {
                 if (typeof app.onSubmit === 'function') {
-                    const enbleInputs = $(
+                    const enableInputs = $(
                         app.configs.inputsSelector
                     ).querySelectorAll('[name]')
-                    const inputValues = Array.from(enbleInputs).reduce(
+
+                    const inputValues = Array.from(enableInputs).reduce(
                         (fields, input) => {
-                            return (fields[input.name] = input.value), fields
+                            switch (input.type) {
+                                case 'radio':
+                                case 'checkbox':
+                                    fields[input.name] =
+                                        formElement.querySelector(
+                                            `input[name="${input.name}"]:checked`
+                                        ).value
+                                    break
+                                default:
+                                    fields[input.name] = input.value
+                            }
+                            return fields
                         },
                         {}
                     )
+
                     app.onSubmit(inputValues)
                 } else {
-                    const formElement = $(app.configs.formSelector)
                     formElement.submit()
                 }
             }
@@ -236,15 +302,11 @@ const app = {
             rules: [
                 {
                     selector: '#full-name-input',
-                    validator: Validator.isFullFilled(
-                        'This field can not be empty'
-                    )
+                    validator: Validator.isFullFilled()
                 },
                 {
                     selector: '#email-input',
-                    validator: Validator.isFullFilled(
-                        'This field can not be empty'
-                    )
+                    validator: Validator.isFullFilled()
                 },
                 {
                     selector: '#email-input',
@@ -259,9 +321,7 @@ const app = {
                 },
                 {
                     selector: '#confirm-password-input',
-                    validator: Validator.isFullFilled(
-                        'This field can not be empty'
-                    )
+                    validator: Validator.isFullFilled()
                 },
                 {
                     selector: '#confirm-password-input',
@@ -269,16 +329,18 @@ const app = {
                 },
                 {
                     selector: 'input[name="gender"]',
-                    validator: Validator.isFullFilled(
-                        'This field can not be empty'
-                    )
+                    validator: Validator.isFullFilled()
+                },
+                {
+                    selector: '#form-province',
+                    validator: Validator.isFullFilled()
                 }
             ],
             // ---- Default configurations, almost are selector ----
             configs: {
                 formSelector: '#form-1',
-                formGroupSelector: '.form-group',
                 inputsSelector: '.form-inputs',
+                formGroupSelector: '.form-group',
                 passwordSelector: '#password-input',
                 formMessageSelector: '.form-message',
                 invalidClass: 'form--invalid'

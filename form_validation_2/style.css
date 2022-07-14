@@ -69,13 +69,15 @@ body {
     font-weight: 700;
     padding: 0 2px;
 }
-.form-input {
+.form-input,
+.form-province {
     padding: 8px 12px;
     border: 1px solid #b3b3b3;
     height: 40px;
     border-radius: 4px;
     outline: none;
     margin: 4px 0;
+    color: var(--text-color);
 }
 .form-radio-inputs {
     margin: 4px 0;
