@@ -2,60 +2,52 @@ import { fields } from './fields.js'
 const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gi
 
 const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
 const button = $('.form-button')
 
-class Validator {
+export class Validator {
     static selectorRules = {}
     static saveRule(rule) {
         if (!this.selectorRules[rule.selector])
             this.selectorRules[rule.selector] = [rule.validator]
         else this.selectorRules[rule.selector].push(rule.validator)
     }
-    static isFullFilled(selector, message) {
+    static isFullFilled(message) {
         return {
-            check: function (configs) {
-                const element = $(selector)
-                const expression = element.value.length !== 0
+            check: function (value) {
+                if (value) return undefined
+                return message
+            }
+        }
+    }
+    static isEmail(message) {
+        return {
+            check: function (value) {
+                const expression = value.match(emailPattern) || value === ''
 
                 if (expression) return undefined
                 return message
             }
         }
     }
-    static isEmail(selector, message) {
+    static minLength(message, min) {
         return {
-            check: function (configs) {
-                const element = $(selector)
-                const expression =
-                    element.value.match(emailPattern) ||
-                    element.value.length === 0
-
-                if (expression) return undefined
-                return message
-            }
-        }
-    }
-    static minLength(selector, message, min) {
-        return {
-            check: function (configs) {
-                const element = $(selector)
-                const expression =
-                    element.value.length >= min || element.value.length === 0
+            check: function (value) {
+                const expression = value.length >= min || value === ''
 
                 if (expression) return undefined
                 return message + min
             }
         }
     }
-    static isMatched(selector, message) {
+    static isMatched(message) {
         return {
-            check: function (configs) {
-                const element = $(selector)
+            check: function (value, configs) {
                 const inputs = $(configs.inputsSelector)
                 const passwordInput = inputs.querySelector(
                     configs.passwordSelector
                 )
-                const expression = element.value === passwordInput.value
+                const expression = value === passwordInput.value
 
                 if (expression) return undefined
                 return message
@@ -69,49 +61,113 @@ const app = {
         Object.assign(this, options)
     },
 
+    createRadioInputs: function (label, ...names) {
+        const radioInputs = names.reduce((inputs, name) => {
+            return (
+                inputs +
+                `<input class="form-radio-input"
+            name="gender"
+            title=${name}
+            type="radio">
+            </input>
+            <span class="form-radio-name">${name}</span>
+            `
+            )
+        }, '')
+
+        return `
+        <div class="form-group">
+        <label class="form-label">${label}</label>
+        <div class="form-radio-inputs">
+        ${radioInputs}
+        </div>
+        <p class="form-message"></p>
+        </div>
+        `
+    },
+
     renderForm: function () {
+        const formInputs = $(this.configs.inputsSelector)
+
         for (const fieldID in this.fields) {
             const field = this.fields[fieldID]
 
             const formGroupElement = `
             <div class="form-group">
-                <label class="form-label" for="${fieldID}-input">${
-                field.name
-            }</label>
+                <label class="form-label" for="${fieldID}-input">${field.name}</label>
                 <input class="form-input" 
                 id="${fieldID}-input" 
                 name="${fieldID}"
                 placeholder="${field.placeholder}"
-                type="${field.name.match(/password/gi) ? 'password' : ''}">
+                type="${field.type}">
                 </input>
                 <p class="form-message"></p>
             </div>
             `
-            $(this.configs.inputsSelector).innerHTML += formGroupElement
+            formInputs.innerHTML += formGroupElement
         }
+
+        formInputs.innerHTML += this.createRadioInputs(
+            'Gender',
+            'Male',
+            'Female',
+            'Other'
+        )
     },
 
-    validateInput: function (inputElement, rule) {
-        const selectorRules = Validator.selectorRules[rule.selector]
-        let message
-
-        for (let i = 0; i < selectorRules.length; i++) {
-            message = selectorRules[i].check(app.configs)
-            if (message) break
-        }
-
-        const formGroup = inputElement.parentElement
-        const messageElement = formGroup.querySelector(
+    renderMessage: function (message, formGroupElement) {
+        const messageElement = formGroupElement.querySelector(
             this.configs.formMessageSelector
         )
 
         if (!message) {
             messageElement.innerText = ''
-            formGroup.classList.remove(this.configs.invalidClass)
+            formGroupElement.classList.remove(this.configs.invalidClass)
         } else {
             messageElement.innerText = message
-            formGroup.classList.add(this.configs.invalidClass)
+            formGroupElement.classList.add(this.configs.invalidClass)
         }
+    },
+
+    applyRules: function (inputElement, formGroupElement, rule) {
+        const inputValue = inputElement.value
+        const selectorRules = Validator.selectorRules[rule.selector]
+
+        for (const selectorRule of selectorRules) {
+            let message
+            switch (inputElement.type) {
+                case 'radio':
+                case 'checkbox':
+                    message = selectorRule.check(
+                        formGroupElement.querySelector(
+                            rule.selector + ':checked'
+                        )
+                    )
+                    break
+                case 'password':
+                    message = selectorRule.check(inputValue, app.configs)
+                    break
+                default:
+                    message = selectorRule.check(inputValue)
+            }
+            if (message) return message
+        }
+    },
+
+    validateInput: function (rule) {
+        const inputElements = Array.from($$(rule.selector))
+        let message = ''
+
+        inputElements.forEach((inputElement) => {
+            const formGroupElement = inputElement.closest(
+                this.configs.formGroupSelector
+            )
+
+            // -- Check rules for inputs --
+            message = this.applyRules(inputElement, formGroupElement, rule)
+            // -- Render error message --
+            this.renderMessage(message, formGroupElement)
+        })
 
         return !message
     },
@@ -120,23 +176,27 @@ const app = {
         // ---- Rules applying ----
         this.rules.forEach((rule) => {
             Validator.saveRule(rule)
-            const inputElement = $(rule.selector)
+            const inputElements = Array.from($$(rule.selector))
 
-            // -- When cursor leaves input --
-            inputElement.onblur = function () {
-                app.validateInput(inputElement, rule)
-            }
+            inputElements.forEach((inputElement) => {
+                // -- When cursor leaves input --
+                inputElement.onblur = function () {
+                    app.validateInput(rule)
+                }
 
-            // -- When typing --
-            inputElement.oninput = function () {
-                const formGroup = inputElement.parentElement
-                const messageElement = formGroup.querySelector(
-                    app.configs.formMessageSelector
-                )
+                // -- When typing --
+                inputElement.oninput = function () {
+                    const formGroup = inputElement.closest(
+                        app.configs.formGroupSelector
+                    )
+                    const messageElement = formGroup.querySelector(
+                        app.configs.formMessageSelector
+                    )
 
-                messageElement.innerText = ''
-                formGroup.classList.remove(app.configs.invalidClass)
-            }
+                    messageElement.innerText = ''
+                    formGroup.classList.remove(app.configs.invalidClass)
+                }
+            })
         })
 
         // ---- Submit button ----
@@ -145,8 +205,7 @@ const app = {
             let isValidForm = true
 
             app.rules.forEach((rule) => {
-                const inputElement = $(rule.selector)
-                let isValidInput = app.validateInput(inputElement, rule)
+                let isValidInput = app.validateInput(rule)
                 if (!isValidInput) isValidForm = false
             })
 
@@ -157,7 +216,7 @@ const app = {
                     ).querySelectorAll('[name]')
                     const inputValues = Array.from(enbleInputs).reduce(
                         (fields, input) => {
-                            return (fields[input.id] = input.value), fields
+                            return (fields[input.name] = input.value), fields
                         },
                         {}
                     )
@@ -172,43 +231,28 @@ const app = {
 
     start: function () {
         const formOne = {
-            // ---- Default configurations, almost are selector ----
-            configs: {
-                formSelector: '#form-1',
-                inputsSelector: '.form-inputs',
-                passwordSelector: '#password-input',
-                formMessageSelector: '.form-message',
-                invalidClass: 'form--invalid'
-            },
-            // ---- Object that contain fields as properties used for this form ----
+            // ---- Data & rules ----
             fields,
-            // ---- Rules array, a collection of rule objects ----
             rules: [
                 {
                     selector: '#full-name-input',
                     validator: Validator.isFullFilled(
-                        '#full-name-input',
                         'This field can not be empty'
                     )
                 },
                 {
                     selector: '#email-input',
                     validator: Validator.isFullFilled(
-                        '#email-input',
                         'This field can not be empty'
                     )
                 },
                 {
                     selector: '#email-input',
-                    validator: Validator.isEmail(
-                        '#email-input',
-                        'Email is invalid'
-                    )
+                    validator: Validator.isEmail('Email is invalid')
                 },
                 {
                     selector: '#password-input',
                     validator: Validator.minLength(
-                        '#password-input',
                         'Characters in password must be more than ',
                         6
                     )
@@ -216,18 +260,29 @@ const app = {
                 {
                     selector: '#confirm-password-input',
                     validator: Validator.isFullFilled(
-                        '#confirm-password-input',
                         'This field can not be empty'
                     )
                 },
                 {
                     selector: '#confirm-password-input',
-                    validator: Validator.isMatched(
-                        '#confirm-password-input',
-                        'Passwords are not matched'
+                    validator: Validator.isMatched('Passwords are not matched')
+                },
+                {
+                    selector: 'input[name="gender"]',
+                    validator: Validator.isFullFilled(
+                        'This field can not be empty'
                     )
                 }
             ],
+            // ---- Default configurations, almost are selector ----
+            configs: {
+                formSelector: '#form-1',
+                formGroupSelector: '.form-group',
+                inputsSelector: '.form-inputs',
+                passwordSelector: '#password-input',
+                formMessageSelector: '.form-message',
+                invalidClass: 'form--invalid'
+            },
             // ---- On submit function, can call API or do something else inside ----
             onSubmit: function (data) {
                 console.log(data)
@@ -237,7 +292,6 @@ const app = {
         this.configurate(formOne)
         this.renderForm()
         this.handleEvents()
-        console.log(app)
     }
 }
 
