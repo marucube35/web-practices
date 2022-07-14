@@ -26,7 +26,9 @@ class Validator {
         return {
             check: function (configs) {
                 const element = $(selector)
-                const expression = element.value.match(emailPattern)
+                const expression =
+                    element.value.match(emailPattern) ||
+                    element.value.length === 0
 
                 if (expression) return undefined
                 return message
@@ -37,7 +39,8 @@ class Validator {
         return {
             check: function (configs) {
                 const element = $(selector)
-                const expression = element.value.length >= min
+                const expression =
+                    element.value.length >= min || element.value.length === 0
 
                 if (expression) return undefined
                 return message + min
